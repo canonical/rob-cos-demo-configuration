@@ -1,0 +1,7 @@
+max-bag-size: 100M # maximum bag file size before we split into another file
+address: rob-cos-ip-placeholder # address of the server to store data
+max-bag-duration: 2min # maximum bag duration before we split into another file
+port: 2222 # port of the server to send data
+storage-base-path: "/var/lib/caddy-fileserver/" # storage base path on the server where we want to store our data (robot uid will be added by the snap)
+topic-regex: * # topic regex to include topics to the record
+topic-exclude: “rosout/” # topic regex to exclude topics from the record

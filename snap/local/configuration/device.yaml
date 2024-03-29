@@ -1,0 +1,2 @@
+grafana_dashboards: [linux-system]
+foxglove_dashboards: [topics-and-logs]
