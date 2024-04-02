@@ -5,7 +5,7 @@ summary: A snap for configuring the rob cos snaps on the device.
 description: |
   A snap for configuring the rob cos snaps on the device.
       
-  This snap offers holds a default configuration for a rob cos device. 
+  This snap offers a default configuration for a rob cos device. 
   It also offers a content sharing interface, to allow snaps on a device that is meant
   to work with the rob-cos ecosystem to easily get configured.
 
@@ -41,3 +41,6 @@ parts:
 apps:
   generate-device-uid:
     command: usr/bin/generate_device_uid.sh
+
+  reset-config:
+    command: usr/bin/reset_config.sh

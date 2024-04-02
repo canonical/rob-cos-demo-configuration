@@ -2,7 +2,7 @@
 
 A snap for configuring the rob cos snaps on the device.
     
-This snap offers holds a default configuration for a rob cos device. 
+This snap offers a default configuration for a rob cos device. 
 It also offers a content sharing interface, to allow snaps on a device that is meant
 to work with the rob-cos ecosystem to easily get configured.
 

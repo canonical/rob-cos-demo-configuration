@@ -1,2 +1,4 @@
-grafana_dashboards: [linux-system]
+url: http://rob-cos-ip-placeholder/model-name-placeholder-cos-registration-server
+uid: robot-uid-placeholder
+grafana_dashboards: [linux-system, systemd-and-snaps-logs]
 foxglove_dashboards: [topics-and-logs]

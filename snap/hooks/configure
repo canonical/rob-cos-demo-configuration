@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+# function to search and replace keywords in
+# SNAP_COMMON's configuration files
 search_and_replace() {
     if [ "$#" -ne 2 ]; then
         echo "Usage: search_and_replace <keyword> <replacement>"
