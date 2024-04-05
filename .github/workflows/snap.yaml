@@ -22,5 +22,5 @@ jobs:
     with:
       branch-name: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
       snap-name: rob-cos-demo-configuration
-      publish: ${{ github.event_name == 'push' || ( github.event_name == 'workflow_dispatch' && inputs.branch-name != '' ) }}
+      publish: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
 
