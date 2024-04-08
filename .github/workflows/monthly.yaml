@@ -6,7 +6,7 @@ on:
 
 jobs:
   main:
-    uses: canonical/ros-cos-demo-configuration/.github/workflows/snap.yaml@main
+    uses: ubuntu-robotics/ros-cos-demo-configuration/.github/workflows/snap.yaml@main
     with:
       branch-name: "main"
 
