@@ -16,7 +16,6 @@ search_and_replace() {
 
     for file in $files; do
         sed -i "s#$keyword#$replacement#g" "$file"
-        echo "Replaced '$keyword' with '$replacement' in $file"
     done
 }
 
