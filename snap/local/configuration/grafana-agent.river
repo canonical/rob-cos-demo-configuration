@@ -27,7 +27,7 @@ prometheus.remote_write "default" {
         device_instance = "robot-uid-placeholder",
     }
 	endpoint {
-		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "/cos-prometheus-0/api/v1/write"
+		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "-prometheus-0/api/v1/write"
 	}
 }
 
@@ -39,6 +39,6 @@ loki.source.journal "read" {
 
 loki.write "endpoint" {
 	endpoint {
-		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "/cos-loki-0/loki/api/v1/push"
+		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "-loki-0/loki/api/v1/push"
 	}
 }
