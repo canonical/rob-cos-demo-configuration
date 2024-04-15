@@ -131,7 +131,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", device_instance=\"$Host\"}[$__rate_interval])))",
           "hide": false,
           "instant": true,
           "intervalFactor": 1,
@@ -219,7 +219,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "scalar(avg_over_time(node_load5{device_instance=\"$node\"}[$__rate_interval])) * 100 / count(node_cpu_seconds_total{device_instance=\"$node\",mode=\"system\"})",
+          "expr": "scalar(avg_over_time(node_load5{device_instance=\"$Host\"}[$__rate_interval])) * 100 / count(node_cpu_seconds_total{device_instance=\"$Host\",mode=\"system\"})",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -307,7 +307,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "scalar(avg_over_time(node_load15{device_instance=\"$node\"}[$__rate_interval])) * 100 / count(node_cpu_seconds_total{device_instance=\"$node\",mode=\"system\"})",
+          "expr": "scalar(avg_over_time(node_load15{device_instance=\"$Host\"}[$__rate_interval])) * 100 / count(node_cpu_seconds_total{device_instance=\"$Host\",mode=\"system\"})",
           "hide": false,
           "instant": true,
           "intervalFactor": 1,
@@ -385,7 +385,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "((avg_over_time(node_memory_MemTotal_bytes{device_instance=\"$node\"}[$__rate_interval]) - avg_over_time(node_memory_MemFree_bytes{device_instance=\"$node\"}[$__rate_interval])) / (avg_over_time(node_memory_MemTotal_bytes{device_instance=\"$node\"}[$__rate_interval]) )) * 100",
+          "expr": "((avg_over_time(node_memory_MemTotal_bytes{device_instance=\"$Host\"}[$__rate_interval]) - avg_over_time(node_memory_MemFree_bytes{device_instance=\"$Host\"}[$__rate_interval])) / (avg_over_time(node_memory_MemTotal_bytes{device_instance=\"$Host\"}[$__rate_interval]) )) * 100",
           "format": "time_series",
           "hide": true,
           "instant": true,
@@ -401,7 +401,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "100 - ((avg_over_time(node_memory_MemAvailable_bytes{device_instance=\"$node\"}[$__rate_interval]) * 100) / avg_over_time(node_memory_MemTotal_bytes{device_instance=\"$node\"}[$__rate_interval]))",
+          "expr": "100 - ((avg_over_time(node_memory_MemAvailable_bytes{device_instance=\"$Host\"}[$__rate_interval]) * 100) / avg_over_time(node_memory_MemTotal_bytes{device_instance=\"$Host\"}[$__rate_interval]))",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -489,7 +489,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "((avg_over_time(node_memory_SwapTotal_bytes{device_instance=\"$node\"}[$__rate_interval]) - avg_over_time(node_memory_SwapFree_bytes{device_instance=\"$node\"}[$__rate_interval])) / (avg_over_time(node_memory_SwapTotal_bytes{device_instance=\"$node\"}[$__rate_interval]) )) * 100",
+          "expr": "((avg_over_time(node_memory_SwapTotal_bytes{device_instance=\"$Host\"}[$__rate_interval]) - avg_over_time(node_memory_SwapFree_bytes{device_instance=\"$Host\"}[$__rate_interval])) / (avg_over_time(node_memory_SwapTotal_bytes{device_instance=\"$Host\"}[$__rate_interval]) )) * 100",
           "instant": true,
           "intervalFactor": 1,
           "range": false,
@@ -575,7 +575,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "100 - ((avg_over_time(node_filesystem_avail_bytes{device_instance=\"$node\",mountpoint=\"/\",fstype!=\"rootfs\"}[$__rate_interval]) * 100) / avg_over_time(node_filesystem_size_bytes{device_instance=\"$node\",mountpoint=\"/\",fstype!=\"rootfs\"}[$__rate_interval]))",
+          "expr": "100 - ((avg_over_time(node_filesystem_avail_bytes{device_instance=\"$Host\",mountpoint=\"/\",fstype!=\"rootfs\"}[$__rate_interval]) * 100) / avg_over_time(node_filesystem_size_bytes{device_instance=\"$Host\",mountpoint=\"/\",fstype!=\"rootfs\"}[$__rate_interval]))",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -657,7 +657,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "count(count(node_cpu_seconds_total{device_instance=\"$node\"}) by (cpu))",
+          "expr": "count(count(node_cpu_seconds_total{device_instance=\"$Host\"}) by (cpu))",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -739,7 +739,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_time_seconds{device_instance=\"$node\"} - node_boot_time_seconds{device_instance=\"$node\"}",
+          "expr": "node_time_seconds{device_instance=\"$Host\"} - node_boot_time_seconds{device_instance=\"$Host\"}",
           "instant": true,
           "intervalFactor": 1,
           "range": false,
@@ -826,7 +826,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_filesystem_size_bytes{device_instance=\"$node\",mountpoint=\"/\",fstype!=\"rootfs\"}",
+          "expr": "node_filesystem_size_bytes{device_instance=\"$Host\",mountpoint=\"/\",fstype!=\"rootfs\"}",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -911,7 +911,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_memory_MemTotal_bytes{device_instance=\"$node\"}",
+          "expr": "node_memory_MemTotal_bytes{device_instance=\"$Host\"}",
           "instant": true,
           "intervalFactor": 1,
           "range": false,
@@ -994,7 +994,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_memory_SwapTotal_bytes{device_instance=\"$node\"}",
+          "expr": "node_memory_SwapTotal_bytes{device_instance=\"$Host\"}",
           "instant": true,
           "intervalFactor": 1,
           "range": false,
@@ -1227,7 +1227,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1242,7 +1242,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1257,7 +1257,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Busy Iowait",
@@ -1271,7 +1271,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=~\".*irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=~\".*irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Busy IRQs",
@@ -1285,7 +1285,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq'}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq'}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Busy Other",
@@ -1299,7 +1299,7 @@
             "uid": "${prometheusds}"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+          "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Idle",
@@ -1768,7 +1768,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "node_memory_MemTotal_bytes{device_instance=\"$node\"}",
+          "expr": "node_memory_MemTotal_bytes{device_instance=\"$Host\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1781,7 +1781,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "node_memory_MemTotal_bytes{device_instance=\"$node\"} - node_memory_MemFree_bytes{device_instance=\"$node\"} - (node_memory_Cached_bytes{device_instance=\"$node\"} + node_memory_Buffers_bytes{device_instance=\"$node\"} + node_memory_SReclaimable_bytes{device_instance=\"$node\"})",
+          "expr": "node_memory_MemTotal_bytes{device_instance=\"$Host\"} - node_memory_MemFree_bytes{device_instance=\"$Host\"} - (node_memory_Cached_bytes{device_instance=\"$Host\"} + node_memory_Buffers_bytes{device_instance=\"$Host\"} + node_memory_SReclaimable_bytes{device_instance=\"$Host\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1794,7 +1794,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "node_memory_Cached_bytes{device_instance=\"$node\"} + node_memory_Buffers_bytes{device_instance=\"$node\"} + node_memory_SReclaimable_bytes{device_instance=\"$node\"}",
+          "expr": "node_memory_Cached_bytes{device_instance=\"$Host\"} + node_memory_Buffers_bytes{device_instance=\"$Host\"} + node_memory_SReclaimable_bytes{device_instance=\"$Host\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "RAM Cache + Buffer",
@@ -1806,7 +1806,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "node_memory_MemFree_bytes{device_instance=\"$node\"}",
+          "expr": "node_memory_MemFree_bytes{device_instance=\"$Host\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "RAM Free",
@@ -1818,7 +1818,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "(node_memory_SwapTotal_bytes{device_instance=\"$node\"} - node_memory_SwapFree_bytes{device_instance=\"$node\"})",
+          "expr": "(node_memory_SwapTotal_bytes{device_instance=\"$Host\"} - node_memory_SwapFree_bytes{device_instance=\"$Host\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "SWAP Used",
@@ -2274,7 +2274,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "irate(node_network_receive_bytes_total{device_instance=\"$node\"}[$__rate_interval])*8",
+          "expr": "irate(node_network_receive_bytes_total{device_instance=\"$Host\"}[$__rate_interval])*8",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "recv {{device}}",
@@ -2286,7 +2286,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "irate(node_network_transmit_bytes_total{device_instance=\"$node\"}[$__rate_interval])*8",
+          "expr": "irate(node_network_transmit_bytes_total{device_instance=\"$Host\"}[$__rate_interval])*8",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "trans {{device}} ",
@@ -2386,7 +2386,7 @@
             "type": "prometheus",
             "uid": "${prometheusds}"
           },
-          "expr": "100 - ((node_filesystem_avail_bytes{device_instance=\"$node\",device!~'rootfs'} * 100) / node_filesystem_size_bytes{device_instance=\"$node\",device!~'rootfs'})",
+          "expr": "100 - ((node_filesystem_avail_bytes{device_instance=\"$Host\",device!~'rootfs'} * 100) / node_filesystem_size_bytes{device_instance=\"$Host\",device!~'rootfs'})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{mountpoint}}",
@@ -2626,7 +2626,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -2641,7 +2641,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "User - Normal processes executing in user mode",
@@ -2655,7 +2655,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"nice\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"nice\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Nice - Niced processes executing in user mode",
@@ -2669,7 +2669,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Iowait - Waiting for I/O to complete",
@@ -2683,7 +2683,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Irq - Servicing interrupts",
@@ -2697,7 +2697,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"softirq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"softirq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Softirq - Servicing softirqs",
@@ -2711,7 +2711,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"steal\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"steal\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Steal - Time spent in other operating systems when running in a virtualized environment",
@@ -2725,7 +2725,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$node\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{device_instance=\"$Host\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3132,7 +3132,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_MemTotal_bytes{device_instance=\"$node\"} - node_memory_MemFree_bytes{device_instance=\"$node\"} - node_memory_Buffers_bytes{device_instance=\"$node\"} - node_memory_Cached_bytes{device_instance=\"$node\"} - node_memory_Slab_bytes{device_instance=\"$node\"} - node_memory_PageTables_bytes{device_instance=\"$node\"} - node_memory_SwapCached_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_MemTotal_bytes{device_instance=\"$Host\"} - node_memory_MemFree_bytes{device_instance=\"$Host\"} - node_memory_Buffers_bytes{device_instance=\"$Host\"} - node_memory_Cached_bytes{device_instance=\"$Host\"} - node_memory_Slab_bytes{device_instance=\"$Host\"} - node_memory_PageTables_bytes{device_instance=\"$Host\"} - node_memory_SwapCached_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3145,7 +3145,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_PageTables_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_PageTables_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3158,7 +3158,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_SwapCached_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_SwapCached_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SwapCache - Memory that keeps track of pages that have been fetched from swap but not yet been modified",
@@ -3170,7 +3170,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Slab_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Slab_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3183,7 +3183,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Cached_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Cached_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3196,7 +3196,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Buffers_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Buffers_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3209,7 +3209,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_MemFree_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_MemFree_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3222,7 +3222,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "(node_memory_SwapTotal_bytes{device_instance=\"$node\"} - node_memory_SwapFree_bytes{device_instance=\"$node\"})",
+              "expr": "(node_memory_SwapTotal_bytes{device_instance=\"$Host\"} - node_memory_SwapFree_bytes{device_instance=\"$Host\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3235,7 +3235,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_HardwareCorrupted_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_HardwareCorrupted_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3410,7 +3410,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_bytes_total{device_instance=\"$node\"}[$__rate_interval])*8",
+              "expr": "irate(node_network_receive_bytes_total{device_instance=\"$Host\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive",
@@ -3422,7 +3422,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_bytes_total{device_instance=\"$node\"}[$__rate_interval])*8",
+              "expr": "irate(node_network_transmit_bytes_total{device_instance=\"$Host\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit",
@@ -3525,7 +3525,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_size_bytes{device_instance=\"$node\",device!~'rootfs'} - node_filesystem_avail_bytes{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_size_bytes{device_instance=\"$Host\",device!~'rootfs'} - node_filesystem_avail_bytes{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{mountpoint}}",
@@ -3955,7 +3955,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_reads_completed_total{device_instance=\"$node\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_reads_completed_total{device_instance=\"$Host\",device=~\"$diskdevices\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Reads completed",
               "refId": "A",
@@ -3966,7 +3966,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_writes_completed_total{device_instance=\"$node\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_writes_completed_total{device_instance=\"$Host\",device=~\"$diskdevices\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Writes completed",
               "refId": "B",
@@ -4182,7 +4182,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_read_bytes_total{device_instance=\"$node\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_read_bytes_total{device_instance=\"$Host\",device=~\"$diskdevices\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -4195,7 +4195,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_written_bytes_total{device_instance=\"$node\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_written_bytes_total{device_instance=\"$Host\",device=~\"$diskdevices\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -4327,7 +4327,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_io_time_seconds_total{device_instance=\"$node\",device=~\"$diskdevices\"} [$__rate_interval])",
+              "expr": "irate(node_disk_io_time_seconds_total{device_instance=\"$Host\",device=~\"$diskdevices\"} [$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -4460,7 +4460,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{device_instance=\"$node\", mode=\"user\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[1m])))",
+              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{device_instance=\"$Host\", mode=\"user\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[1m])))",
               "hide": false,
               "legendFormat": "Guest - Time spent running a virtual CPU for a guest operating system",
               "range": true,
@@ -4472,7 +4472,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{device_instance=\"$node\", mode=\"nice\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$node\"}[1m])))",
+              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{device_instance=\"$Host\", mode=\"nice\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{device_instance=\"$Host\"}[1m])))",
               "hide": false,
               "legendFormat": "GuestNice - Time spent running a niced guest  (virtual CPU for guest operating system)",
               "range": true,
@@ -4857,7 +4857,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Inactive_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Inactive_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Inactive - Memory which has been less recently used.  It is more eligible to be reclaimed for other purposes",
@@ -4869,7 +4869,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Active_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Active_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Active - Memory that has been used more recently and usually not reclaimed unless absolutely necessary",
@@ -5247,7 +5247,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Committed_AS_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Committed_AS_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Committed_AS - Amount of memory presently allocated on the system",
@@ -5259,7 +5259,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_CommitLimit_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_CommitLimit_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "CommitLimit - Amount of  memory currently available to be allocated on the system",
@@ -5618,7 +5618,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Inactive_file_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Inactive_file_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5631,7 +5631,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Inactive_anon_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Inactive_anon_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5644,7 +5644,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Active_file_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Active_file_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5657,7 +5657,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Active_anon_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Active_anon_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -6046,7 +6046,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Writeback_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Writeback_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Writeback - Memory which is actively being written back to disk",
@@ -6058,7 +6058,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_WritebackTmp_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_WritebackTmp_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "WritebackTmp - Memory used by FUSE for temporary writeback buffers",
@@ -6070,7 +6070,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Dirty_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Dirty_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Dirty - Memory which is waiting to get written back to the disk",
@@ -6453,7 +6453,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Mapped_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Mapped_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Mapped - Used memory in mapped pages files which have been mapped, such as libraries",
@@ -6465,7 +6465,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Shmem_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Shmem_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Shmem - Used shared memory (shared between several processes, thus including RAM disks)",
@@ -6477,7 +6477,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_ShmemHugePages_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_ShmemHugePages_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -6490,7 +6490,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_ShmemPmdMapped_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_ShmemPmdMapped_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -6879,7 +6879,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_SUnreclaim_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_SUnreclaim_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SUnreclaim - Part of Slab, that cannot be reclaimed on memory pressure",
@@ -6891,7 +6891,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_SReclaimable_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_SReclaimable_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SReclaimable - Part of Slab, that might be reclaimed, such as caches",
@@ -7264,7 +7264,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_VmallocChunk_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_VmallocChunk_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -7277,7 +7277,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_VmallocTotal_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_VmallocTotal_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -7290,7 +7290,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_VmallocUsed_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_VmallocUsed_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -7650,7 +7650,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Bounce_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Bounce_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Bounce - Memory used for block device bounce buffers",
@@ -8035,7 +8035,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_AnonHugePages_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_AnonHugePages_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "AnonHugePages - Memory in anonymous huge pages",
@@ -8047,7 +8047,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_AnonPages_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_AnonPages_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "AnonPages - Memory in user pages not backed by files",
@@ -8406,7 +8406,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_KernelStack_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_KernelStack_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "KernelStack - Kernel memory stack. This is not reclaimable",
@@ -8418,7 +8418,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Percpu_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Percpu_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -8791,7 +8791,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_HugePages_Free{device_instance=\"$node\"}",
+              "expr": "node_memory_HugePages_Free{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages_Free - Huge pages in the pool that are not yet allocated",
@@ -8803,7 +8803,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_HugePages_Rsvd{device_instance=\"$node\"}",
+              "expr": "node_memory_HugePages_Rsvd{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages_Rsvd - Huge pages for which a commitment to allocate from the pool has been made, but no allocation has yet been made",
@@ -8815,7 +8815,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_HugePages_Surp{device_instance=\"$node\"}",
+              "expr": "node_memory_HugePages_Surp{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages_Surp - Huge pages in the pool above the value in /proc/sys/vm/nr_hugepages",
@@ -9187,7 +9187,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_HugePages_Total{device_instance=\"$node\"}",
+              "expr": "node_memory_HugePages_Total{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages - Total size of the pool of huge pages",
@@ -9199,7 +9199,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Hugepagesize_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Hugepagesize_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Hugepagesize - Huge Page size",
@@ -9571,7 +9571,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_DirectMap1G_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_DirectMap1G_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "DirectMap1G - Amount of pages mapped as this size",
@@ -9583,7 +9583,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_DirectMap2M_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_DirectMap2M_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -9596,7 +9596,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_DirectMap4k_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_DirectMap4k_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -9956,7 +9956,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Unevictable_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Unevictable_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Unevictable - Amount of unevictable memory that can't be swapped out for a variety of reasons",
@@ -9968,7 +9968,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_Mlocked_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_Mlocked_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "MLocked - Size of pages locked to memory using the mlock() system call",
@@ -10356,7 +10356,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_memory_NFS_Unstable_bytes{device_instance=\"$node\"}",
+              "expr": "node_memory_NFS_Unstable_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "NFS Unstable - Memory in NFS pages sent to the server, but not yet committed to the storage",
@@ -10497,7 +10497,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pgpgin{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgpgin{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pagesin - Page in operations",
@@ -10509,7 +10509,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pgpgout{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgpgout{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pagesout - Page out operations",
@@ -10623,7 +10623,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pswpin{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pswpin{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pswpin - Pages swapped in",
@@ -10635,7 +10635,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pswpout{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pswpout{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pswpout - Pages swapped out",
@@ -11013,7 +11013,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pgfault{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgfault{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pgfault - Page major and minor fault operations",
@@ -11025,7 +11025,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pgmajfault{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgmajfault{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pgmajfault - Major page fault operations",
@@ -11037,7 +11037,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_pgfault{device_instance=\"$node\"}[$__rate_interval])  - irate(node_vmstat_pgmajfault{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgfault{device_instance=\"$Host\"}[$__rate_interval])  - irate(node_vmstat_pgmajfault{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pgminfault - Minor page fault operations",
@@ -11425,7 +11425,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_vmstat_oom_kill{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_oom_kill{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -11571,7 +11571,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_estimated_error_seconds{device_instance=\"$node\"}",
+              "expr": "node_timex_estimated_error_seconds{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -11585,7 +11585,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_offset_seconds{device_instance=\"$node\"}",
+              "expr": "node_timex_offset_seconds{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -11599,7 +11599,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_maxerror_seconds{device_instance=\"$node\"}",
+              "expr": "node_timex_maxerror_seconds{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -11703,7 +11703,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_loop_time_constant{device_instance=\"$node\"}",
+              "expr": "node_timex_loop_time_constant{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -11822,7 +11822,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_sync_status{device_instance=\"$node\"}",
+              "expr": "node_timex_sync_status{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -11835,7 +11835,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_frequency_adjustment_ratio{device_instance=\"$node\"}",
+              "expr": "node_timex_frequency_adjustment_ratio{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -11938,7 +11938,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_tick_seconds{device_instance=\"$node\"}",
+              "expr": "node_timex_tick_seconds{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -11951,7 +11951,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_timex_tai_offset_seconds{device_instance=\"$node\"}",
+              "expr": "node_timex_tai_offset_seconds{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12081,7 +12081,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_procs_blocked{device_instance=\"$node\"}",
+              "expr": "node_procs_blocked{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Processes blocked waiting for I/O to complete",
@@ -12093,7 +12093,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_procs_running{device_instance=\"$node\"}",
+              "expr": "node_procs_running{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Processes in runnable state",
@@ -12196,7 +12196,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_processes_state{device_instance=\"$node\"}",
+              "expr": "node_processes_state{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12299,7 +12299,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_forks_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_forks_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -12415,7 +12415,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(process_virtual_memory_bytes{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(process_virtual_memory_bytes{device_instance=\"$Host\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -12428,7 +12428,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "process_resident_memory_max_bytes{device_instance=\"$node\"}",
+              "expr": "process_resident_memory_max_bytes{device_instance=\"$Host\"}",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -12441,7 +12441,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(process_virtual_memory_bytes{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(process_virtual_memory_bytes{device_instance=\"$Host\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -12454,7 +12454,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(process_virtual_memory_max_bytes{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(process_virtual_memory_max_bytes{device_instance=\"$Host\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -12578,7 +12578,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_processes_pids{device_instance=\"$node\"}",
+              "expr": "node_processes_pids{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12591,7 +12591,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_processes_max_processes{device_instance=\"$node\"}",
+              "expr": "node_processes_max_processes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12706,7 +12706,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_schedstat_running_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_schedstat_running_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12719,7 +12719,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_schedstat_waiting_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_schedstat_waiting_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12843,7 +12843,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_processes_threads{device_instance=\"$node\"}",
+              "expr": "node_processes_threads{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12856,7 +12856,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_processes_max_threads{device_instance=\"$node\"}",
+              "expr": "node_processes_max_threads{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12986,7 +12986,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_context_switches_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_context_switches_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Context switches",
@@ -12998,7 +12998,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_intr_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_intr_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13101,7 +13101,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_load1{device_instance=\"$node\"}",
+              "expr": "node_load1{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Load 1m",
@@ -13113,7 +13113,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_load5{device_instance=\"$node\"}",
+              "expr": "node_load5{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Load 5m",
@@ -13125,7 +13125,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_load15{device_instance=\"$node\"}",
+              "expr": "node_load15{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Load 15m",
@@ -13303,7 +13303,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "node_cpu_scaling_frequency_hertz{device_instance=\"$node\"}",
+              "expr": "node_cpu_scaling_frequency_hertz{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -13319,7 +13319,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "avg(node_cpu_scaling_frequency_max_hertz{device_instance=\"$node\"})",
+              "expr": "avg(node_cpu_scaling_frequency_max_hertz{device_instance=\"$Host\"})",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -13335,7 +13335,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "avg(node_cpu_scaling_frequency_min_hertz{device_instance=\"$node\"})",
+              "expr": "avg(node_cpu_scaling_frequency_min_hertz{device_instance=\"$Host\"})",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -13504,7 +13504,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "rate(node_pressure_cpu_waiting_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "rate(node_pressure_cpu_waiting_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "CPU some",
@@ -13518,7 +13518,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "rate(node_pressure_memory_waiting_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "rate(node_pressure_memory_waiting_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13533,7 +13533,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "rate(node_pressure_memory_stalled_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "rate(node_pressure_memory_stalled_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13548,7 +13548,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "rate(node_pressure_io_waiting_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "rate(node_pressure_io_waiting_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13563,7 +13563,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "rate(node_pressure_io_stalled_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "rate(node_pressure_io_stalled_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13707,7 +13707,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_interrupts_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_interrupts_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13809,7 +13809,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_schedstat_timeslices_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_schedstat_timeslices_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13912,7 +13912,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_entropy_available_bits{device_instance=\"$node\"}",
+              "expr": "node_entropy_available_bits{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Entropy available to random number generators",
@@ -14013,7 +14013,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(process_cpu_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(process_cpu_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14136,7 +14136,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "process_max_fds{device_instance=\"$node\"}",
+              "expr": "process_max_fds{device_instance=\"$Host\"}",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Maximum open file descriptors",
@@ -14148,7 +14148,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "process_open_fds{device_instance=\"$node\"}",
+              "expr": "process_open_fds{device_instance=\"$Host\"}",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Open file descriptors",
@@ -14316,7 +14316,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_hwmon_temp_celsius{device_instance=\"$node\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$node\"}",
+              "expr": "node_hwmon_temp_celsius{device_instance=\"$Host\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14329,7 +14329,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_hwmon_temp_crit_alarm_celsius{device_instance=\"$node\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$node\"}",
+              "expr": "node_hwmon_temp_crit_alarm_celsius{device_instance=\"$Host\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -14343,7 +14343,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_hwmon_temp_crit_celsius{device_instance=\"$node\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$node\"}",
+              "expr": "node_hwmon_temp_crit_celsius{device_instance=\"$Host\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14356,7 +14356,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_hwmon_temp_crit_hyst_celsius{device_instance=\"$node\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$node\"}",
+              "expr": "node_hwmon_temp_crit_hyst_celsius{device_instance=\"$Host\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -14370,7 +14370,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_hwmon_temp_max_celsius{device_instance=\"$node\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$node\"}",
+              "expr": "node_hwmon_temp_max_celsius{device_instance=\"$Host\"} * on(chip) group_left(chip_name) node_hwmon_chip_names{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -14493,7 +14493,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_cooling_device_cur_state{device_instance=\"$node\"}",
+              "expr": "node_cooling_device_cur_state{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -14507,7 +14507,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_cooling_device_max_state{device_instance=\"$node\"}",
+              "expr": "node_cooling_device_max_state{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14609,7 +14609,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_power_supply_online{device_instance=\"$node\"}",
+              "expr": "node_power_supply_online{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -14740,7 +14740,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_systemd_socket_accepted_connections_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_systemd_socket_accepted_connections_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14918,7 +14918,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_systemd_units{device_instance=\"$node\",state=\"activating\"}",
+              "expr": "node_systemd_units{device_instance=\"$Host\",state=\"activating\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14931,7 +14931,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_systemd_units{device_instance=\"$node\",state=\"active\"}",
+              "expr": "node_systemd_units{device_instance=\"$Host\",state=\"active\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14944,7 +14944,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_systemd_units{device_instance=\"$node\",state=\"deactivating\"}",
+              "expr": "node_systemd_units{device_instance=\"$Host\",state=\"deactivating\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14957,7 +14957,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_systemd_units{device_instance=\"$node\",state=\"failed\"}",
+              "expr": "node_systemd_units{device_instance=\"$Host\",state=\"failed\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14970,7 +14970,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_systemd_units{device_instance=\"$node\",state=\"inactive\"}",
+              "expr": "node_systemd_units{device_instance=\"$Host\",state=\"inactive\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -15413,7 +15413,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_reads_completed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_reads_completed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Reads completed",
               "refId": "A",
@@ -15424,7 +15424,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_writes_completed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_writes_completed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Writes completed",
               "refId": "B",
@@ -15838,7 +15838,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_read_bytes_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_read_bytes_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Read bytes",
@@ -15850,7 +15850,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_written_bytes_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_written_bytes_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Written bytes",
@@ -16265,7 +16265,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_read_time_seconds_total{device_instance=\"$node\"}[$__rate_interval]) / irate(node_disk_reads_completed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_read_time_seconds_total{device_instance=\"$Host\"}[$__rate_interval]) / irate(node_disk_reads_completed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 4,
@@ -16278,7 +16278,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_write_time_seconds_total{device_instance=\"$node\"}[$__rate_interval]) / irate(node_disk_writes_completed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_write_time_seconds_total{device_instance=\"$Host\"}[$__rate_interval]) / irate(node_disk_writes_completed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -16683,7 +16683,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_io_time_weighted_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_io_time_weighted_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}}",
@@ -17098,7 +17098,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_reads_merged_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_reads_merged_total{device_instance=\"$Host\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Read merged",
               "refId": "A",
@@ -17109,7 +17109,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_writes_merged_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_writes_merged_total{device_instance=\"$Host\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Write merged",
               "refId": "B",
@@ -17512,7 +17512,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_io_time_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_io_time_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - IO",
@@ -17524,7 +17524,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_discard_time_seconds_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_discard_time_seconds_total{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - discard",
@@ -17928,7 +17928,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_disk_io_now{device_instance=\"$node\"}",
+              "expr": "node_disk_io_now{device_instance=\"$Host\"}",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - IO now",
@@ -18331,7 +18331,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_discards_completed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_discards_completed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Discards completed",
@@ -18343,7 +18343,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_disk_discards_merged_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_disk_discards_merged_total{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Discards merged",
@@ -18473,7 +18473,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_avail_bytes{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_avail_bytes{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -18487,7 +18487,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_free_bytes{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_free_bytes{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "hide": true,
               "intervalFactor": 1,
@@ -18500,7 +18500,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_size_bytes{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_size_bytes{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "hide": true,
               "intervalFactor": 1,
@@ -18604,7 +18604,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_files_free{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_files_free{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -18708,7 +18708,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filefd_maximum{device_instance=\"$node\"}",
+              "expr": "node_filefd_maximum{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Max open files",
@@ -18720,7 +18720,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filefd_allocated{device_instance=\"$node\"}",
+              "expr": "node_filefd_allocated{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Open files",
@@ -18823,7 +18823,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_files{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_files{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -18944,7 +18944,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_readonly{device_instance=\"$node\",device!~'rootfs'}",
+              "expr": "node_filesystem_readonly{device_instance=\"$Host\",device!~'rootfs'}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{mountpoint}} - ReadOnly",
@@ -18956,7 +18956,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_filesystem_device_error{device_instance=\"$node\",device!~'rootfs',fstype!~'tmpfs'}",
+              "expr": "node_filesystem_device_error{device_instance=\"$Host\",device!~'rootfs',fstype!~'tmpfs'}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -19159,7 +19159,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_packets_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_packets_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -19172,7 +19172,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_packets_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_packets_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -19288,7 +19288,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_errs_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_errs_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive errors",
@@ -19300,7 +19300,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_errs_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_errs_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit errors",
@@ -19415,7 +19415,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_drop_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_drop_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive drop",
@@ -19427,7 +19427,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_drop_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_drop_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit drop",
@@ -19542,7 +19542,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_compressed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_compressed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive compressed",
@@ -19554,7 +19554,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_compressed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_compressed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit compressed",
@@ -19669,7 +19669,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_multicast_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_multicast_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive multicast",
@@ -19784,7 +19784,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_fifo_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_fifo_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive fifo",
@@ -19796,7 +19796,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_fifo_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_fifo_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit fifo",
@@ -19911,7 +19911,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_receive_frame_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_frame_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -20014,7 +20014,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_carrier_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_carrier_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Statistic transmit_carrier",
@@ -20129,7 +20129,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_network_transmit_colls_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_colls_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit colls",
@@ -20251,7 +20251,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_nf_conntrack_entries{device_instance=\"$node\"}",
+              "expr": "node_nf_conntrack_entries{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "NF conntrack entries",
@@ -20263,7 +20263,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_nf_conntrack_entries_limit{device_instance=\"$node\"}",
+              "expr": "node_nf_conntrack_entries_limit{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "NF conntrack limit",
@@ -20365,7 +20365,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_arp_entries{device_instance=\"$node\"}",
+              "expr": "node_arp_entries{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} - ARP entries",
@@ -20468,7 +20468,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_network_mtu_bytes{device_instance=\"$node\"}",
+              "expr": "node_network_mtu_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} - Bytes",
@@ -20571,7 +20571,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_network_speed_bytes{device_instance=\"$node\"}",
+              "expr": "node_network_speed_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} - Speed",
@@ -20674,7 +20674,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_network_transmit_queue_length{device_instance=\"$node\"}",
+              "expr": "node_network_transmit_queue_length{device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} -   Interface transmit queue length",
@@ -20789,7 +20789,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_softnet_processed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_softnet_processed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -20802,7 +20802,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_softnet_dropped_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_softnet_dropped_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -20905,7 +20905,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_softnet_times_squeezed_total{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_softnet_times_squeezed_total{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21008,7 +21008,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_network_up{operstate=\"up\",device_instance=\"$node\"}",
+              "expr": "node_network_up{operstate=\"up\",device_instance=\"$Host\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{interface}} - Operational state UP",
@@ -21020,7 +21020,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_network_carrier{device_instance=\"$node\"}",
+              "expr": "node_network_carrier{device_instance=\"$Host\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "{{device}} - Physical link state",
@@ -21149,7 +21149,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_TCP_alloc{device_instance=\"$node\"}",
+              "expr": "node_sockstat_TCP_alloc{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21162,7 +21162,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_TCP_inuse{device_instance=\"$node\"}",
+              "expr": "node_sockstat_TCP_inuse{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21175,7 +21175,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_TCP_mem{device_instance=\"$node\"}",
+              "expr": "node_sockstat_TCP_mem{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -21189,7 +21189,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_TCP_orphan{device_instance=\"$node\"}",
+              "expr": "node_sockstat_TCP_orphan{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21202,7 +21202,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_TCP_tw{device_instance=\"$node\"}",
+              "expr": "node_sockstat_TCP_tw{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21306,7 +21306,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_UDPLITE_inuse{device_instance=\"$node\"}",
+              "expr": "node_sockstat_UDPLITE_inuse{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21319,7 +21319,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_UDP_inuse{device_instance=\"$node\"}",
+              "expr": "node_sockstat_UDP_inuse{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21332,7 +21332,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_UDP_mem{device_instance=\"$node\"}",
+              "expr": "node_sockstat_UDP_mem{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21436,7 +21436,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_FRAG_inuse{device_instance=\"$node\"}",
+              "expr": "node_sockstat_FRAG_inuse{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21449,7 +21449,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_RAW_inuse{device_instance=\"$node\"}",
+              "expr": "node_sockstat_RAW_inuse{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21553,7 +21553,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_TCP_mem_bytes{device_instance=\"$node\"}",
+              "expr": "node_sockstat_TCP_mem_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21566,7 +21566,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_UDP_mem_bytes{device_instance=\"$node\"}",
+              "expr": "node_sockstat_UDP_mem_bytes{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21579,7 +21579,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_FRAG_memory{device_instance=\"$node\"}",
+              "expr": "node_sockstat_FRAG_memory{device_instance=\"$Host\"}",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "FRAG_memory - Used memory for frag",
@@ -21681,7 +21681,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_sockstat_sockets_used{device_instance=\"$node\"}",
+              "expr": "node_sockstat_sockets_used{device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21824,7 +21824,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_IpExt_InOctets{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_IpExt_InOctets{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21837,7 +21837,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_IpExt_OutOctets{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_IpExt_OutOctets{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "OutOctets - Sent octets",
@@ -21940,7 +21940,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Ip_Forwarding{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Ip_Forwarding{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22055,7 +22055,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Icmp_InMsgs{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Icmp_InMsgs{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22068,7 +22068,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Icmp_OutMsgs{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Icmp_OutMsgs{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22183,7 +22183,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Icmp_InErrors{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Icmp_InErrors{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22310,7 +22310,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Udp_InDatagrams{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_InDatagrams{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22323,7 +22323,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Udp_OutDatagrams{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_OutDatagrams{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22425,7 +22425,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Udp_InErrors{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_InErrors{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22438,7 +22438,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Udp_NoPorts{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_NoPorts{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22451,7 +22451,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_UdpLite_InErrors{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_UdpLite_InErrors{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "InErrors Lite - UDPLite Datagrams that could not be delivered to an application",
               "refId": "C"
@@ -22461,7 +22461,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Udp_RcvbufErrors{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_RcvbufErrors{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22474,7 +22474,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Udp_SndbufErrors{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_SndbufErrors{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22601,7 +22601,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_InSegs{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_InSegs{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -22615,7 +22615,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_OutSegs{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_OutSegs{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22719,7 +22719,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_TcpExt_ListenOverflows{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_ListenOverflows{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -22733,7 +22733,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_TcpExt_ListenDrops{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_ListenDrops{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -22747,7 +22747,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_TcpExt_TCPSynRetrans{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_TCPSynRetrans{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22760,7 +22760,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_RetransSegs{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_RetransSegs{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "RetransSegs - Segments retransmitted - that is, the number of TCP segments transmitted containing one or more previously transmitted octets",
               "refId": "D"
@@ -22770,7 +22770,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_InErrs{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_InErrs{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "InErrs - Segments received in error (e.g., bad TCP checksums)",
               "refId": "E"
@@ -22780,7 +22780,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_OutRsts{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_OutRsts{device_instance=\"$Host\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "OutRsts - Segments sent with RST flag",
               "refId": "F"
@@ -22900,7 +22900,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_netstat_Tcp_CurrEstab{device_instance=\"$node\"}",
+              "expr": "node_netstat_Tcp_CurrEstab{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -22914,7 +22914,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_netstat_Tcp_MaxConn{device_instance=\"$node\"}",
+              "expr": "node_netstat_Tcp_MaxConn{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23031,7 +23031,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_TcpExt_SyncookiesFailed{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_SyncookiesFailed{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23045,7 +23045,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_TcpExt_SyncookiesRecv{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_SyncookiesRecv{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23059,7 +23059,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_TcpExt_SyncookiesSent{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_SyncookiesSent{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23163,7 +23163,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_ActiveOpens{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_ActiveOpens{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23176,7 +23176,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "irate(node_netstat_Tcp_PassiveOpens{device_instance=\"$node\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_PassiveOpens{device_instance=\"$Host\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23277,7 +23277,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"established\",device_instance=\"$node\"}",
+              "expr": "node_tcp_connection_states{state=\"established\",device_instance=\"$Host\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23292,7 +23292,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"fin_wait2\",device_instance=\"$node\"}",
+              "expr": "node_tcp_connection_states{state=\"fin_wait2\",device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23308,7 +23308,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"listen\",device_instance=\"$node\"}",
+              "expr": "node_tcp_connection_states{state=\"listen\",device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23324,7 +23324,7 @@
                 "uid": "${prometheusds}"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"time_wait\",device_instance=\"$node\"}",
+              "expr": "node_tcp_connection_states{state=\"time_wait\",device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23456,7 +23456,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_scrape_collector_duration_seconds{device_instance=\"$node\"}",
+              "expr": "node_scrape_collector_duration_seconds{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23583,7 +23583,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_scrape_collector_success{device_instance=\"$node\"}",
+              "expr": "node_scrape_collector_success{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23597,7 +23597,7 @@
                 "type": "prometheus",
                 "uid": "${prometheusds}"
               },
-              "expr": "node_textfile_scrape_error{device_instance=\"$node\"}",
+              "expr": "node_textfile_scrape_error{device_instance=\"$Host\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23684,7 +23684,7 @@
         "includeAll": false,
         "label": "Host",
         "multi": false,
-        "name": "node",
+        "name": "Host",
         "options": [],
         "query": {
           "query": "label_values(node_uname_info{job=\"integrations/unix\"}, device_instance)",
