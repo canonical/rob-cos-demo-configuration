@@ -29,7 +29,7 @@
         "dashes": false,
         "datasource": {
           "type": "loki",
-          "uid": "${DS_LOKI}"
+          "uid": "${lokids}"
         },
         "fieldConfig": {
           "defaults": {
@@ -74,7 +74,7 @@
         "targets": [
           {
             "datasource": {
-              "uid": "${DS_LOKI}"
+              "uid": "${lokids}"
             },
             "editorMode": "builder",
             "expr": "sum(count_over_time({job=\"loki.source.journal.read\", instance=~\"$Host\"} |= `$search` [$__interval]))",
@@ -130,7 +130,7 @@
       {
         "datasource": {
           "type": "loki",
-          "uid": "${DS_LOKI}"
+          "uid": "${lokids}"
         },
         "gridPos": {
           "h": 45,
@@ -153,7 +153,7 @@
           {
             "datasource": {
               "type": "loki",
-              "uid": "${DS_LOKI}"
+              "uid": "${lokids}"
             },
             "editorMode": "code",
             "expr": "{job=\"loki.source.journal.read\", instance=~\"$Host\"} |= `\"_SYSTEMD_UNIT\":\"snap.` |= `$search` | json | line_format \"{{._HOSTNAME}} {{._SYSTEMD_UNIT}} \\t {{ .MESSAGE }}\"",
@@ -176,7 +176,7 @@
           {
             "datasource": {
               "type": "loki",
-              "uid": "${DS_LOKI}"
+              "uid": "${lokids}"
             },
             "gridPos": {
               "h": 25,
@@ -199,7 +199,7 @@
             "targets": [
               {
                 "datasource": {
-                  "uid": "${DS_LOKI}"
+                  "uid": "${lokids}"
                 },
                 "editorMode": "builder",
                 "expr": "{job=\"loki.source.journal.read\", instance=~\"$Host\"} |= `$search` | json",
@@ -234,7 +234,7 @@
           "includeAll": false,
           "label": "App",
           "multi": false,
-          "name": "DS_LOKI",
+          "name": "lokids",
           "options": [],
           "query": "loki",
           "refresh": 1,
@@ -274,7 +274,7 @@
           },
           "datasource": {
             "type": "loki",
-            "uid": "${DS_LOKI}"
+            "uid": "${lokids}"
           },
           "definition": "",
           "hide": 0,
