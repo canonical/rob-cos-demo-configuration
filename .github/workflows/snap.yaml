@@ -9,18 +9,16 @@ on:
   workflow_dispatch:
   workflow_call:
    inputs:
-      branch-name:
+      branch:
         required: false
         type: string
         default: ''
 
 jobs:
   snap:
-    uses: ubuntu-robotics/snap_workflows/.github/workflows/snap.yaml@main
+    uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
     secrets:
-      store-login: ${{ secrets.STORE_LOGIN }}
+      snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
-      branch-name: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
-      snap-name: rob-cos-demo-configuration
-      publish: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+      git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
 
