@@ -1,6 +1,6 @@
 name: rob-cos-demo-configuration
 base: core22
-version: '0.1'
+version: git
 summary: A snap for configuring the rob cos snaps on the device.
 description: |
   A snap for configuring the rob cos snaps on the device.
