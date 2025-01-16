@@ -3,3 +3,4 @@ uid: robot-uid-placeholder
 device-grafana-dashboards: [linux-system, systemd-and-snaps-logs]
 device-foxglove-dashboards: [topics-and-logs, teleop]
 device-loki-alert-rules: []
+device-prometheus-alert-rules: [low_memory]
