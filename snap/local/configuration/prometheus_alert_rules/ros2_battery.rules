@@ -5,7 +5,7 @@ groups:
       annotations:
         description: "Generic low battery alert"
         summary: "Robot {{ $labels.instance }} has less than 10 % of battery."
-      expr: (my_battery__{})/1e9 < 10
+      expr: (my_battery__{}) < 10
       for: 5m
       labels:
         severity: warning
