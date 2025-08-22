@@ -22,4 +22,4 @@ jobs:
     with:
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
       snap-track: advanced
-      snap-risk: candidate
+      snap-risk: beta
