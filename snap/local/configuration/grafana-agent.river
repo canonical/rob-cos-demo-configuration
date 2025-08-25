@@ -28,6 +28,9 @@ prometheus.remote_write "default" {
     }
 	endpoint {
 		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "-prometheus-0/api/v1/write"
+		tls_config {
+            ca_file             = "/etc/ssl/certs/ca-certificates.crt"
+        }
 	}
 }
 
@@ -40,5 +43,8 @@ loki.source.journal "read" {
 loki.write "endpoint" {
 	endpoint {
 		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "-loki-0/loki/api/v1/push"
+		tls_config {
+            ca_file             = "/etc/ssl/certs/ca-certificates.crt"
+        }
 	}
 }
