@@ -2,10 +2,10 @@ name: snap
 on:
   push:
     branches:
-      - main
+      - basic
   pull_request:
     branches:
-      - main
+      - basic
   workflow_dispatch:
   workflow_call:
    inputs:
@@ -21,4 +21,5 @@ jobs:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
-
+      snap-track: basic
+      snap-risk: beta
