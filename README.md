@@ -4,7 +4,7 @@ This repository hosts a snap for configuring snaps on a device to be monitored w
 
 It offers two branches with different levels of configuration:
 
-- `basic`: Provides a basic setup for quick starting monitoring and collecting data a the device.
+- `basic`: Provides a basic setup for quick starting monitoring and collecting data from a device.
 - `advanced`: Provides an extended setup with additional features such as TLS, identity management and Ceph storage.
 
 The snap provides a content sharing interface so that other snaps on the device can easily access the configuration.
