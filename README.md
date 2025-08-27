@@ -31,7 +31,7 @@ sudo snap install rob-cos-demo-configuration --channel=advanced/beta
 
 ## Usage:
 
-Once installed connect the snaps on the device requiring the configuration as follows:
+Once installed, connect the snaps on the device requiring the configuration as follows:
 ```
 sudo snap connect rob-cos-snap:configuration-read rob-cos-demo-configuration:configuration-read
 ```
