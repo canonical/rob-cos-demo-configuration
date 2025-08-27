@@ -1,18 +1,37 @@
 # rob-cos-demo-configuration
 
-A snap for configuring the rob cos snaps on the device.
-    
-This snap offers a default configuration for a rob cos device. 
-It also offers a content sharing interface, to allow snaps on a device that is meant
-to work with the rob-cos ecosystem to easily get configured.
+This repository hosts a snap for configuring snaps on a device to be monitored with [COS for devices](https://canonical-robotics.readthedocs-hosted.com/en/latest/explanations/observability/what-is-cos-for-robotics/).
 
-It offers a slot called configuration-read that allows plugged snaps to read data
-stored in $SNAP_COMMON/configuration.
+It offers two branches with different levels of configuration:
 
-Usage:
+- `basic`: Provides a basic setup to quickly start monitoring and collecting data from a device.
+**⚠️ Not production ready - intended only for testing and development.**
+- `advanced`: Provides an extended setup with additional features such as TLS, identity management and Ceph storage.
 
-Connect as follows:
+The snap provides a content sharing interface so that other snaps on the device can easily access the configuration.
+It exposes a slot called `configuration-read` that allows plugged snaps to read data
+stored in `$SNAP_COMMON/configuration`.
+
+More information on how to write a configuration snap for cos for device can be found in the [official documentation](https://canonical-robotics.readthedocs-hosted.com/en/latest/how-to-guides/operation/write-configuration-snap-for-cos-for-robotics/).
+
+## Installation
+
+To install the basic setup:
+
+```
+sudo snap install rob-cos-demo-configuration --channel=basic/beta
+```
+
+To install the advanced setup:
+
+```
+sudo snap install rob-cos-demo-configuration --channel=advanced/beta
+```
+
+
+## Usage:
+
+Once installed connect the snaps on the device requiring the configuration as follows:
 ```
 sudo snap connect rob-cos-snap:configuration-read rob-cos-demo-configuration:configuration-read
 ```
-
