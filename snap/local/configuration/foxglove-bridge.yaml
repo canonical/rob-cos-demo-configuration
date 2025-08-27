@@ -2,5 +2,5 @@ port: 8765 # websocket port to broadcast ROS data
 address: 0.0.0.0 # websocket address to broadcast ROS data
 topic-whitelist: "['/camera/color/image_raw', '/tf', '/scan_filtered', '/rosout']" # topic regex to include topics to the broadcast
 tls: True
-certfile: /var/snap/foxglove-bridge/common/rob-cos-shared-data/foxglove.crt
-keyfile: /var/snap/foxglove-bridge/common/rob-cos-shared-data/foxglove.key
+certfile: /var/snap/foxglove-bridge/common/rob-cos-shared-data/device.crt
+keyfile: /var/snap/foxglove-bridge/common/rob-cos-shared-data/device.key
