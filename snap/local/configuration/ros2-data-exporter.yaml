@@ -6,3 +6,7 @@ max-bag-duration: 300 # 5min maximum bag duration before we split into another f
 storage-base-path: "/var/lib/caddy-fileserver/" # storage base path on the server where we want to store our data (robot uid will be added by the snap)
 topic-regex: ".*" # topic regex to include topics to the record
 topic-exclude: "/rosout" # topic regex to exclude topics from the record
+
+access-key-id: <access-key-id-placeholder>
+secret-access-key: <secret-access-key-placeholder>
+bucket: <bucket-placeholder>
