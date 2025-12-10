@@ -8,8 +8,8 @@ jobs:
   basic:
     uses: canonical/rob-cos-demo-configuration/.github/workflows/snap.yaml@main
     with:
-      branch: "basic"
+      branch-name: "basic"
   advanced:
     uses: canonical/rob-cos-demo-configuration/.github/workflows/snap.yaml@main
     with:
-      branch: "advanced"
+      branch-name: "advanced"
