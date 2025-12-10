@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   workflow_call:
    inputs:
-      branch:
+      branch-name:
         required: false
         type: string
         default: ''
