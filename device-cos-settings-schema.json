@@ -1,0 +1,28 @@
+{
+    "type": "confdb-schema",
+    "authority-id": "PLACEHOLDER-ACCOUNT-ID",
+    "account-id": "PLACEHOLDER-ACCOUNT-ID",
+    "name": "device-cos-settings",
+    "views": {
+        "control-device-cos-settings": {
+            "rules": [
+                {
+                    "request": "rob-cos-base-url",
+                    "storage": "cos.rob-cos-base-url",
+                    "access": "read-write"
+                }
+            ]
+        },
+        "observe-device-cos-settings": {
+            "rules": [
+                {
+                    "request": "rob-cos-base-url",
+                    "storage": "cos.rob-cos-base-url",
+                    "access": "read"
+                }
+            ]
+        }
+    },
+    "body": "{\n  \"storage\": {\n    \"schema\": {\n      \"cos\": {\n        \"schema\": {\n          \"rob-cos-base-url\": \"string\"\n        }\n      }\n    }\n  }\n}",
+    "timestamp": "2026-01-22T00:00:00+00:00"
+}

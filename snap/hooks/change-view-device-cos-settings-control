@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import subprocess
+
+# Get the current value from the confdb view
+cmd = "snapctl get --view :device-cos-settings-control -d"
+proc = subprocess.run(cmd.split(), capture_output=True, text=True)
+
+if proc.returncode != 0:
+    # First time setup - no data yet, this is OK
+    exit(0)
+
+# Add validation logic here if needed
+# For now, just accept any valid string for rob-cos-base-url
+# Future: validate URL format, ensure it's reachable, etc.
+
+exit(0)

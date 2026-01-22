@@ -26,6 +26,19 @@ slots:
     read: 
       - $SNAP_COMMON/configuration
 
+plugs:
+  device-cos-settings-control:
+    interface: confdb
+    account: PLACEHOLDER-ACCOUNT-ID
+    view: device-cos-settings/control-device-cos-settings
+    role: custodian
+
+  device-cos-settings-observe:
+    interface: confdb
+    account: PLACEHOLDER-ACCOUNT-ID
+    view: device-cos-settings/observe-device-cos-settings
+    role: custodian
+
 parts:
   scripts:
     plugin: dump
