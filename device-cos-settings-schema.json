@@ -1,7 +1,8 @@
 {
     "type": "confdb-schema",
-    "authority-id": "PLACEHOLDER-ACCOUNT-ID",
-    "account-id": "PLACEHOLDER-ACCOUNT-ID",
+    "authority-id": "VX84EGFo6txXHSNk4l55reEiaU5n7I7R",
+    "account-id": "VX84EGFo6txXHSNk4l55reEiaU5n7I7R",
+    "revision": "4",
     "name": "device-cos-settings",
     "views": {
         "control-device-cos-settings": {
@@ -9,6 +10,11 @@
                 {
                     "request": "rob-cos-base-url",
                     "storage": "cos.rob-cos-base-url",
+                    "access": "read-write"
+                },
+                {
+                    "request": "registration-server-endpoint",
+                    "storage": "cos.registration-server-endpoint",
                     "access": "read-write"
                 }
             ]
@@ -19,10 +25,15 @@
                     "request": "rob-cos-base-url",
                     "storage": "cos.rob-cos-base-url",
                     "access": "read"
+                },
+                {
+                    "request": "registration-server-endpoint",
+                    "storage": "cos.registration-server-endpoint",
+                    "access": "read"
                 }
             ]
         }
     },
-    "body": "{\n  \"storage\": {\n    \"schema\": {\n      \"cos\": {\n        \"schema\": {\n          \"rob-cos-base-url\": \"string\"\n        }\n      }\n    }\n  }\n}",
+    "body": "{\n  \"storage\": {\n    \"schema\": {\n      \"cos\": {\n        \"schema\": {\n          \"rob-cos-base-url\": \"string\",\n          \"registration-server-endpoint\": \"string\"\n        }\n      }\n    }\n  }\n}",
     "timestamp": "2026-01-22T00:00:00+00:00"
 }

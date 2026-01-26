@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+return 0
+# Initialize the confdb with the value from rob-cos-base-url file
+if [ -f "$SNAP_COMMON/configuration/rob-cos-base-url" ]; then
+    BASE_URL=$(cat "$SNAP_COMMON/configuration/rob-cos-base-url")
+    snapctl set --view :device-cos-settings-control rob-cos-base-url="$BASE_URL"
+    logger -t ${SNAP_NAME} "Initialized confdb rob-cos-base-url from file: ${BASE_URL}"
+else
+    logger -t ${SNAP_NAME} "No rob-cos-base-url file found, confdb will need to be set manually"
+fi
+
+# Set default registration-server-endpoint
+snapctl set --view :device-cos-settings-control registration-server-endpoint="-cos-registration-server"
+logger -t ${SNAP_NAME} "Initialized confdb registration-server-endpoint with default value: -cos-registration-server"

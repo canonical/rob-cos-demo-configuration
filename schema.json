@@ -1,0 +1,22 @@
+{
+  "type": "confdb-schema",
+  "account-id": "VX84EGFo6txXHSNk4l55reEiaU5n7I7R",
+  "name": "device-cos-settings",
+  "summary": "Summary of the confdb-schema",
+  "revision": "2",
+  "views": {
+    "wifi-setup": {
+      "summary": "Summary of the view.",
+      "rules": [
+        {
+          "request": "ssids",
+          "storage": "wifi.ssids",
+          "access": "read"
+        }
+      ]
+    }
+  },
+  "body": "{\n  \"storage\": {\n    \"schema\": {\n      \"wifi\": {\n        \"values\": \"any\"\n      }\n    }\n  }\n}",
+  "authority-id": "VX84EGFo6txXHSNk4l55reEiaU5n7I7R",
+  "timestamp": "2026-01-23T14:38:02Z"
+}

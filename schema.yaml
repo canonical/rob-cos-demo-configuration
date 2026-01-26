@@ -1,0 +1,25 @@
+account-id: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
+name: device-cos-settings
+summary: Summary of the confdb-schema
+# The revision for this confdb-schema
+# revision: 1
+views:
+  wifi-setup:
+    summary: Summary of the view.
+    rules:
+      - request: ssids
+        storage: wifi.ssids
+        access: read
+
+body: |-
+  {
+    "storage": {
+      "schema": {
+        "wifi": {
+          "values": "any"
+        }
+      }
+    }
+  }
+
+

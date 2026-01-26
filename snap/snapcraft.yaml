@@ -29,13 +29,13 @@ slots:
 plugs:
   device-cos-settings-control:
     interface: confdb
-    account: PLACEHOLDER-ACCOUNT-ID
+    account: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
     view: device-cos-settings/control-device-cos-settings
     role: custodian
 
   device-cos-settings-observe:
     interface: confdb
-    account: PLACEHOLDER-ACCOUNT-ID
+    account: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
     view: device-cos-settings/observe-device-cos-settings
     role: custodian
 

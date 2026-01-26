@@ -1,0 +1,53 @@
+type: confdb-schema
+authority-id: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
+revision: 4
+account-id: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
+name: device-cos-settings
+timestamp: 2026-01-22T00:00:00+00:00
+views:
+  control-device-cos-settings:
+    rules:
+      -
+        access: read-write
+        request: rob-cos-base-url
+        storage: cos.rob-cos-base-url
+      -
+        access: read-write
+        request: registration-server-endpoint
+        storage: cos.registration-server-endpoint
+  observe-device-cos-settings:
+    rules:
+      -
+        access: read
+        request: rob-cos-base-url
+        storage: cos.rob-cos-base-url
+      -
+        access: read
+        request: registration-server-endpoint
+        storage: cos.registration-server-endpoint
+body-length: 188
+sign-key-sha3-384: oo3D-3R94v05TpSxh8DxtNzw8-O3_Z57zr73DC6hDkID3O8cCCiVLpBcIWIt5P4b
+
+{
+  "storage": {
+    "schema": {
+      "cos": {
+        "schema": {
+          "registration-server-endpoint": "string",
+          "rob-cos-base-url": "string"
+        }
+      }
+    }
+  }
+}
+
+AcLBcwQAAQoAHRYhBGgYlraG6TgdpKdo5JsAwfCAlBP3BQJpc6uKAAoJEJsAwfCAlBP3qr8P/jVK
+qZF3vqizqBVqbxJO9lNKp3NYfRXktUCeSDin+nLfL0Dbx4K1fq5cx5/DQyvpTUcbIczPF6ObsOOj
+LsAtesLjgjaSn+1UNs52jYXRnWZZ3aUTeT25ZwqP5jQFo4Zos5OPCBWJZxCBrrZHZUDXAt2bPoQV
+NTqGIBJ4K0waSySRWm02YflrlMBnfcL+BF1st4JhSKkTTGelqkAh2G6o3pywfnUb8rpnKaCTewwZ
+rs5P5qSIdVTPi3qHwuf9QZ/7YlCqqmewU6mSZbtsgT7dFgmrbArT+UJp9o5AteWcPGoF5e5u/c8b
+7V+Pme6f6GovSPG5tW5icor0xBnXJ4MgOaCsI4qEqQ+M5hSG8z48+7mE9odqk5xnyvCt2rxRJDBz
++WV3CQJ/rgAs6a46JGWjRt1ogTQWBpj2BO8+ebWl370FiUgwW7Xys8JFAOKUEGaU4DquccktJSES
+ZFEYTP9NJQloJxS719t5OiN6SgGGtLgw3hkEaomzqQDAKnokY47z5c2OMEBtzX8ApBr8z8fSeu2b
+70Q7/Zv0Eyrjj256WcxbdB3EUkLL/8McIEOzrl9MUUb5Md8ee+n72IeKCQTEaxXC1zs0mxXRgHkN
+ofSKWud8itao+XRVKgn683K8xVdRHOmoTtobodhaPW5nIw9HTlW2LtxLEIRKmgCPIwJqO/cF
