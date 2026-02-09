@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - basic
+      - track/*
   pull_request:
     branches:
       - basic
+      - track/*
   workflow_dispatch:
   workflow_call:
    inputs:
@@ -22,5 +24,5 @@ jobs:
     with:
       runs-on: '["ubuntu-latest", ["self-hosted", "linux", "ARM64", "medium", "noble"]]'
       git-ref: ${{ inputs.branch-name == '' && github.ref || inputs.branch-name }}
-      snap-track: basic
-      snap-risk: beta
+      snap-track: '0'
+      snap-risk: candidate
