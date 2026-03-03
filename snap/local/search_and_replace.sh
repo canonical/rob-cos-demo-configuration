@@ -26,15 +26,31 @@ CURRENT_MODEL_NAME=$(snapctl get --view :device-cos-settings-observe model-name 
 
 # Get stored placeholders from defaults to know what to replace
 DEFAULTS_FILE="$SNAP/etc/configuration/defaults/device.yaml"
-if [ -f "$DEFAULTS_FILE" ]; then
-    STORED_DEVICE_ID=$(grep '^uid:' "$DEFAULTS_FILE" | awk '{print $2}')
-else
-    STORED_DEVICE_ID="robot-uid-placeholder"
+
+# Error if defaults file doesn't exist
+if [ ! -f "$DEFAULTS_FILE" ]; then
+    echo "ERROR: Defaults file not found at $DEFAULTS_FILE" >&2
+    exit 1
 fi
 
-# Hardcoded placeholders for COS IP and model name
-STORED_ROB_COS_IP="rob-cos-ip-placeholder"
-STORED_MODEL_NAME="model-name-placeholder"
+# Read all placeholders from defaults file
+STORED_DEVICE_ID=$(grep '^uid:' "$DEFAULTS_FILE" | awk '{print $2}')
+STORED_ROB_COS_IP=$(grep '^rob-cos-ip:' "$DEFAULTS_FILE" | awk '{print $2}')
+STORED_MODEL_NAME=$(grep '^model-name:' "$DEFAULTS_FILE" | awk '{print $2}')
+
+# Verify all placeholders were found
+if [ -z "$STORED_DEVICE_ID" ]; then
+    echo "ERROR: uid not found in $DEFAULTS_FILE" >&2
+    exit 1
+fi
+if [ -z "$STORED_ROB_COS_IP" ]; then
+    echo "ERROR: rob-cos-ip not found in $DEFAULTS_FILE" >&2
+    exit 1
+fi
+if [ -z "$STORED_MODEL_NAME" ]; then
+    echo "ERROR: model-name not found in $DEFAULTS_FILE" >&2
+    exit 1
+fi
 
 # Update device UID in live config files if we have a value from confdb
 if [ -n "$CURRENT_DEVICE_ID" ] && [ "$CURRENT_DEVICE_ID" != "$STORED_DEVICE_ID" ]; then

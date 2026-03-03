@@ -5,18 +5,51 @@ import subprocess
 import os
 import sys
 
+def initialize_defaults():
+    """Initialize confdb with default values on first access."""
+    # Generate device UID from machine-id
+    try:
+        with open("/etc/machine-id", "r") as f:
+            device_uid = f.read().strip()
+    except Exception:
+        device_uid = "default-device-id"
+    
+    # Set default placeholder values
+    # These should be updated by the user/administrator after installation
+    defaults = {
+        "device-uid": device_uid,
+        "rob-cos-ip": "rob-cos-ip-placeholder",
+        "model-name": "model-name-placeholder",
+        "registration-server-endpoint": "-cos-registration-server",
+    }
+    
+    # Set each value
+    for key, value in defaults.items():
+        cmd = ["snapctl", "set", "--view", ":device-cos-settings-control", f"{key}={value}"]
+        subprocess.run(cmd, check=True)
+    
+    print(f"Initialized confdb with defaults: device-uid={device_uid}")
+    return defaults
+
 # Get the current confdb configuration
 cmd = "snapctl get --view :device-cos-settings-control -d"
 proc = subprocess.run(cmd.split(), capture_output=True, text=True)
 
 if proc.returncode != 0:
-    # First time setup - no data yet, this is OK
-    sys.exit(0)
-
-try:
-    config = json.loads(proc.stdout)
-except json.JSONDecodeError:
-    sys.exit(0)
+    # First access - no data yet, initialize with defaults
+    print("First access to confdb, initializing with default values...")
+    config = initialize_defaults()
+else:
+    try:
+        config = json.loads(proc.stdout)
+        
+        # Check if confdb is empty (first run after connection)
+        if not config or all(v is None or v == "" for v in config.values()):
+            print("Confdb is empty, initializing with default values...")
+            config = initialize_defaults()
+    except json.JSONDecodeError:
+        print("Failed to parse confdb, initializing with default values...")
+        config = initialize_defaults()
 
 # Validation
 device_uid = config.get("device-uid", "")

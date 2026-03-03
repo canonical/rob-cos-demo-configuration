@@ -1,36 +1,9 @@
 #!/bin/sh -e
 
-# Check if confdb already has data (avoid re-initializing on reconnect)
-EXISTING_UID=$(snapctl get --view :device-cos-settings-control device-uid 2>/dev/null || echo "")
+# Connect hook runs BEFORE the connection is established,
+# so we CANNOT access confdb here (snapctl get/set will fail or hang).
+#
+# Initialization of default confdb values is handled in the
+# change-view hook, which runs AFTER the connection is established.
 
-if [ -z "$EXISTING_UID" ]; then
-    # First-time setup: Initialize confdb from defaults
-    logger -t ${SNAP_NAME} "Initializing confdb from default values"
-    
-    # Get device UID from defaults/device.yaml or generate new one
-    DEFAULTS_FILE="$SNAP/etc/configuration/defaults/device.yaml"
-    if [ -f "$DEFAULTS_FILE" ]; then
-        DEVICE_UID=$(grep '^uid:' "$DEFAULTS_FILE" | awk '{print $2}')
-    fi
-    
-    # If still placeholder or empty, generate actual machine ID
-    if [ -z "$DEVICE_UID" ] || [ "$DEVICE_UID" = "robot-uid-placeholder" ]; then
-        DEVICE_UID=$(bash "$SNAP/usr/bin/generate_device_uid.sh")
-    fi
-    
-    # Set default placeholders for COS IP and model name
-    # These should be updated by the user/administrator after installation
-    ROB_COS_IP="rob-cos-ip-placeholder"
-    MODEL_NAME="model-name-placeholder"
-    
-    # Set all values in confdb
-    snapctl set --view :device-cos-settings-control \
-        device-uid="$DEVICE_UID" \
-        rob-cos-ip="$ROB_COS_IP" \
-        model-name="$MODEL_NAME" \
-        registration-server-endpoint="-cos-registration-server"
-    
-    logger -t ${SNAP_NAME} "Initialized confdb: device-uid=$DEVICE_UID, rob-cos-ip=$ROB_COS_IP, model-name=$MODEL_NAME"
-else
-    logger -t ${SNAP_NAME} "Confdb already initialized (device-uid=$EXISTING_UID), skipping default setup"
-fi
+logger -t ${SNAP_NAME} "Confdb control interface connected. Initialization will happen on first access."

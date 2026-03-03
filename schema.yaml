@@ -2,7 +2,7 @@ account-id: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
 name: device-cos-settings
 summary: Configuration schema for device COS settings including device identity and server endpoints
 # The revision for this confdb-schema
-# revision: 1
+revision: 7
 views:
   control-device-cos-settings:
     summary: Complete read-write access to device COS settings (custodian only)

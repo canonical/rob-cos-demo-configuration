@@ -1,4 +1,6 @@
 uid: robot-uid-placeholder
+rob-cos-ip: rob-cos-ip-placeholder
+model-name: model-name-placeholder
 device-grafana-dashboards: [linux-system, systemd-and-snaps-logs]
 device-foxglove-dashboards: [topics-and-logs, teleop]
 device-loki-alert-rule-files: [human_detected]

@@ -1,4 +1,5 @@
-#!/usr/bin/bash
+#!/bin/sh
+# Generate device UID from machine-id
 
 machine_id_path="/etc/machine-id"
 
