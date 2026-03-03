@@ -1,17 +1,57 @@
 #!/usr/bin/env python3
 
+import json
 import subprocess
+import os
+import sys
 
-# Get the current value from the confdb view
+# Get the current confdb configuration
 cmd = "snapctl get --view :device-cos-settings-control -d"
 proc = subprocess.run(cmd.split(), capture_output=True, text=True)
 
 if proc.returncode != 0:
     # First time setup - no data yet, this is OK
-    exit(0)
+    sys.exit(0)
 
-# Add validation logic here if needed
-# For now, just accept any valid string for rob-cos-base-url
-# Future: validate URL format, ensure it's reachable, etc.
+try:
+    config = json.loads(proc.stdout)
+except json.JSONDecodeError:
+    sys.exit(0)
 
-exit(0)
+# Validation
+device_uid = config.get("device-uid", "")
+rob_cos_ip = config.get("rob-cos-ip", "")
+model_name = config.get("model-name", "")
+
+# Validate device UID
+if device_uid and len(device_uid) < 3:
+    cmd = "snapctl fail Device UID must be at least 3 characters"
+    subprocess.run(cmd.split())
+    sys.exit(1)
+
+# Validate COS IP format (if provided and not placeholder)
+if rob_cos_ip and rob_cos_ip != "rob-cos-ip-placeholder":
+    # Basic validation: should look like hostname or IP
+    if len(rob_cos_ip) < 1:
+        cmd = "snapctl fail COS IP/hostname cannot be empty"
+        subprocess.run(cmd.split())
+        sys.exit(1)
+
+# Validate model name (if provided and not placeholder)
+if model_name and model_name != "model-name-placeholder":
+    if len(model_name) < 1:
+        cmd = "snapctl fail Model name cannot be empty"
+        subprocess.run(cmd.split())
+        sys.exit(1)
+
+# Trigger search and replace to update live configuration files with confdb values
+# Note: This updates runtime config files in SNAP_COMMON, not the defaults
+try:
+    search_replace = os.path.join(os.environ.get("SNAP", ""), "usr/bin/search_and_replace.sh")
+    if os.path.exists(search_replace):
+        subprocess.run(["/bin/bash", search_replace], check=False)
+except Exception as e:
+    # Don't fail the hook if updates fail - confdb is the source of truth
+    print(f"Warning: Could not update configuration files: {e}", file=sys.stderr)
+
+sys.exit(0)

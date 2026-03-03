@@ -1,22 +1,56 @@
 account-id: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
 name: device-cos-settings
-summary: Summary of the confdb-schema
+summary: Configuration schema for device COS settings including device identity and server endpoints
 # The revision for this confdb-schema
 # revision: 1
 views:
-  wifi-setup:
-    summary: Summary of the view.
+  control-device-cos-settings:
+    summary: Complete read-write access to device COS settings (custodian only)
     rules:
-      - request: ssids
-        storage: wifi.ssids
+      - request: device-uid
+        storage: device.uid
+        access: read-write
+      - request: rob-cos-ip
+        storage: cos.rob-cos-ip
+        access: read-write
+      - request: model-name
+        storage: cos.model-name
+        access: read-write
+      - request: registration-server-endpoint
+        storage: cos.registration-server-endpoint
+        access: read-write
+  
+  observe-device-cos-settings:
+    summary: Read-only access to device COS settings
+    rules:
+      - request: device-uid
+        storage: device.uid
+        access: read
+      - request: rob-cos-ip
+        storage: cos.rob-cos-ip
+        access: read
+      - request: model-name
+        storage: cos.model-name
+        access: read
+      - request: registration-server-endpoint
+        storage: cos.registration-server-endpoint
         access: read
 
 body: |-
   {
     "storage": {
       "schema": {
-        "wifi": {
-          "values": "any"
+        "device": {
+          "schema": {
+            "uid": "string"
+          }
+        },
+        "cos": {
+          "schema": {
+            "rob-cos-ip": "string",
+            "model-name": "string",
+            "registration-server-endpoint": "string"
+          }
         }
       }
     }
