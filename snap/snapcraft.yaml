@@ -57,3 +57,7 @@ apps:
 
   reset-config:
     command: usr/bin/reset_config.sh
+
+  snapctl-wrapper:
+    command: usr/bin/snapctl-wrapper.sh
+    plugs: [device-cos-settings-control]
