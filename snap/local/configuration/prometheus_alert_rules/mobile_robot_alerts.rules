@@ -1,0 +1,27 @@
+groups:
+  - name: mobile-robot-alerts/%%juju_device_uuid%%
+    rules:
+    - alert: RobotStuck%%juju_device_uuid%%
+      annotations:
+        description: "Robot {{ $labels.device_instance }} has been commanded to move but odometry reports near-zero velocity for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} may be stuck."
+      expr: ros2_cmd_vel_linear_x{device_instance="%%juju_device_uuid%%"} != 0 and abs(ros2_odometry_linear_velocity{device_instance="%%juju_device_uuid%%"}) < 0.01
+      for: 5m
+      labels:
+        severity: warning
+    - alert: MotorOvercurrent%%juju_device_uuid%%
+      annotations:
+        description: "Motor current on {{ $labels.device_instance }} has exceeded 20 A for 1 minute."
+        summary: "Robot {{ $labels.device_instance }} is drawing excess motor current."
+      expr: ros2_motor_current_amperes{device_instance="%%juju_device_uuid%%"} > 20
+      for: 1m
+      labels:
+        severity: critical
+    - alert: StaleLIDARData%%juju_device_uuid%%
+      annotations:
+        description: "LIDAR data from {{ $labels.device_instance }} has not been updated for over 30 seconds."
+        summary: "Robot {{ $labels.device_instance }} LIDAR data is stale."
+      expr: time() - ros2_lidar_last_message_timestamp_seconds{device_instance="%%juju_device_uuid%%"} > 30
+      for: 1m
+      labels:
+        severity: warning

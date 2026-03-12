@@ -1,0 +1,11 @@
+groups:
+  - name: manipulator_estop/%%juju_device_uuid%%
+    rules:
+      - alert: EStopEngaged%%juju_device_uuid%%
+        expr: 'count_over_time({instance="%%juju_device_uuid%%", job="loki.source.journal.read"} |= `E-stop engaged` [1m]) > 0'
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: "E-stop has been engaged on {{ $labels.instance }}."
+          description: "An E-stop event has been detected in the logs of {{ $labels.instance }}."

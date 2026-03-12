@@ -1,0 +1,27 @@
+groups:
+  - name: manipulator-alerts/%%juju_device_uuid%%
+    rules:
+    - alert: JointTrackingError%%juju_device_uuid%%
+      annotations:
+        description: "Joint position tracking error on {{ $labels.device_instance }} has exceeded 0.1 rad for 1 minute."
+        summary: "Robot {{ $labels.device_instance }} has a joint position tracking error."
+      expr: ros2_joint_position_error_radians{device_instance="%%juju_device_uuid%%"} > 0.1
+      for: 1m
+      labels:
+        severity: warning
+    - alert: JointOvertemperature%%juju_device_uuid%%
+      annotations:
+        description: "Joint temperature on {{ $labels.device_instance }} has been above 70 °C for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} has an overtemperature joint."
+      expr: ros2_joint_temperature_celsius{device_instance="%%juju_device_uuid%%"} > 70
+      for: 5m
+      labels:
+        severity: critical
+    - alert: PayloadExceeded%%juju_device_uuid%%
+      annotations:
+        description: "The payload carried by {{ $labels.device_instance }} has exceeded the rated limit for 1 minute."
+        summary: "Robot {{ $labels.device_instance }} payload has exceeded the rated capacity."
+      expr: ros2_payload_mass_kg{device_instance="%%juju_device_uuid%%"} > ros2_payload_rated_mass_kg{device_instance="%%juju_device_uuid%%"}
+      for: 1m
+      labels:
+        severity: warning
