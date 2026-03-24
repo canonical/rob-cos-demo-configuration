@@ -1,11 +1,11 @@
 groups:
-  - name: mobile_robot_localisation/%%juju_device_uuid%%
+  - name: mobile_robot_localization/%%juju_device_uuid%%
     rules:
-      - alert: LocalisationLoss%%juju_device_uuid%%
-        expr: 'sum(rate({instance="%%juju_device_uuid%%", job="loki.source.journal.read"} |= `localisation failed` [5m])) > 0'
+      - alert: LocalizationLoss%%juju_device_uuid%%
+        expr: 'sum(rate({instance="%%juju_device_uuid%%", job="loki.source.journal.read"} |= `localization failed` [5m])) > 0'
         for: 1m
         labels:
           severity: critical
         annotations:
-          summary: "Robot {{ $labels.instance }} has lost localisation."
-          description: "Localisation failure messages have appeared in the logs of {{ $labels.instance }} in the last 5 minutes."
+          summary: "Robot {{ $labels.instance }} has lost localization."
+          description: "Localization failure messages have appeared in the logs of {{ $labels.instance }} in the last 5 minutes."

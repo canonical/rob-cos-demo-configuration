@@ -2,7 +2,7 @@ groups:
   - name: manipulator_estop/%%juju_device_uuid%%
     rules:
       - alert: EStopEngaged%%juju_device_uuid%%
-        expr: 'count_over_time({instance="%%juju_device_uuid%%", job="loki.source.journal.read"} |= `E-stop engaged` [1m]) > 0'
+        expr: 'count_over_time({instance="%%juju_device_uuid%%", job="loki.source.journal.read"} |= `E-stop engaged` [2m]) > 0'
         for: 0s
         labels:
           severity: critical
