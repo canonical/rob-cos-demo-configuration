@@ -20,6 +20,18 @@ description: |
 grade: stable
 confinement: strict
 
+plugs:
+  cos-registration-agent-observe:
+    interface: confdb
+    account: VX84EGFo6txXHSNk4l55reEiaU5n7I7R
+    view: cos-registration-agent/control-configuration
+
+hooks:
+  configure:
+    plugs: [cos-registration-agent-observe]
+  connect-plug-cos-registration-agent-observe:
+    plugs: [cos-registration-agent-observe]
+
 slots:
   configuration-read:
     interface: content

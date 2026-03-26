@@ -1,3 +1,83 @@
-#!/bin/sh -e
+#!/usr/bin/env python3
 
-bash $SNAP/usr/bin/search_and_replace.sh
+import os
+import subprocess
+import sys
+import logging
+import logging.handlers
+
+# Setup logging to journald only
+logger = logging.getLogger("configure-hook")
+logger.setLevel(logging.INFO)
+
+# Journald/syslog handler
+try:
+    syslog_handler = logging.handlers.SysLogHandler(address='/dev/log')
+    syslog_formatter = logging.Formatter('rob-cos-demo-configuration.configure: %(message)s')
+    syslog_handler.setFormatter(syslog_formatter)
+    logger.addHandler(syslog_handler)
+except Exception:
+    pass  # Silently fail if syslog unavailable
+
+# Path to the default configuration file
+defaults_file = os.path.join(
+    os.environ.get("SNAP", ""),
+    "etc/configuration/defaults/device.yaml"
+)
+
+# Check if defaults file exists
+if not os.path.exists(defaults_file):
+    logger.error(f"Defaults file not found: {defaults_file}")
+    sys.exit(1)
+
+try:
+    # Read default YAML file
+    with open(defaults_file, 'r') as f:
+        config_data = f.read()
+    
+    # Get snap configuration values
+    def get_snap_config(key):
+        """Get snap configuration value."""
+        try:
+            result = subprocess.run(
+                ["snapctl", "get", key],
+                capture_output=True,
+                text=True,
+                check=False
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                return result.stdout.strip()
+        except Exception:
+            pass
+        return None
+    
+    # Replace placeholders with snap config values
+    rob_cos_ip = get_snap_config("rob-cos-ip")
+    if rob_cos_ip:
+        config_data = config_data.replace("rob-cos-ip-placeholder", rob_cos_ip)
+    
+    model_name = get_snap_config("model-name")
+    if model_name:
+        config_data = config_data.replace("model-name-placeholder", model_name)
+    
+    robot_uid = get_snap_config("robot-uid")
+    if robot_uid:
+        config_data = config_data.replace("robot-uid-placeholder", robot_uid)
+    
+    # Write to confdb
+    result = subprocess.run(
+        ["snapctl", "set", "--view", ":cos-registration-agent-observe", f"data={config_data}"],
+        capture_output=True,
+        text=True
+    )
+    
+    if result.returncode != 0:
+        logger.warning(f"Failed to write to confdb: {result.stderr}")
+    else:
+        logger.info("Configuration updated in confdb")
+
+except Exception as e:
+    logger.error(f"Error updating confdb: {e}")
+
+# Always exit successfully
+sys.exit(0)

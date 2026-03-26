@@ -23,7 +23,6 @@ CURRENT_DEVICE_ID=$(snapctl get device-uid)
 STORED_DEVICE_ID=$(cat $SNAP_COMMON/configuration/uid)
 
 if [ "$CURRENT_DEVICE_ID" != "$STORED_DEVICE_ID" ]; then
-    echo "device_id is different updating!"
     search_and_replace $STORED_DEVICE_ID $CURRENT_DEVICE_ID
 fi
 
@@ -33,7 +32,6 @@ STORED_COS_SERVER_URL=$(cat $SNAP_COMMON/configuration/rob-cos-base-url)
 STORED_COS_SERVER_IP="$(echo "$STORED_COS_SERVER_URL" | awk -F '//' '{print $2}' | cut -d '/' -f 1)"
 
 if [ "$CURRENT_COS_SERVER_URL" != "$STORED_COS_SERVER_URL" ]; then
-    echo "rob-cos-base-url is different updating!"
     search_and_replace $STORED_COS_SERVER_URL $CURRENT_COS_SERVER_URL
     search_and_replace $STORED_COS_SERVER_IP $CURRENT_COS_SERVER_IP
 fi

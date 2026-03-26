@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+import sys
+import logging.handlers
+
+# Setup logging to journald
+logger = logging.getLogger()
+try:
+    handler = logging.handlers.SysLogHandler(address='/dev/log')
+    handler.setFormatter(logging.Formatter('rob-cos-demo-configuration.connect-plug: %(message)s'))
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+except Exception:
+    pass
+
+# Path to the default configuration file
+defaults_file = os.path.join(
+    os.environ.get("SNAP", ""),
+    "etc/configuration/defaults/device.yaml"
+)
+
+# Check if defaults file exists
+if not os.path.exists(defaults_file):
+    logger.warning(f"Defaults file not found: {defaults_file}")
+    sys.exit(0)
+
+try:
+    # Read default YAML file
+    with open(defaults_file, 'r') as f:
+        default_config = f.read()
+    
+    # Write to confdb
+    result = subprocess.run(
+        ["snapctl", "set", "--view", ":cos-registration-agent-observe", f"data={default_config}"],
+        capture_output=True,
+        text=True
+    )
+    
+    if result.returncode != 0:
+        logger.warning(f"Failed to write defaults to confdb: {result.stderr}")
+    else:
+        logger.info("Initialized confdb with default configuration")
+
+except Exception as e:
+    logger.error(f"Error initializing confdb: {e}")
+
+# Always exit successfully
+sys.exit(0)
