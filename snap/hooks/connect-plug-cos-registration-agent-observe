@@ -27,11 +27,25 @@ if not os.path.exists(defaults_file):
     sys.exit(0)
 
 try:
+    # Check if confdb already has data
+    check_result = subprocess.run(
+        ["snapctl", "get", "--view", ":cos-registration-agent-observe", "data"],
+        capture_output=True,
+        text=True
+    )
+    
+    # If confdb already has data, don't overwrite it
+    if check_result.returncode == 0 and check_result.stdout.strip():
+        logger.info("Confdb already initialized, skipping default value write")
+        sys.exit(0)
+    
+    logger.info("Confdb is empty, initializing with default configuration")
+    
     # Read default YAML file
     with open(defaults_file, 'r') as f:
         default_config = f.read()
     
-    # Write to confdb
+    # Write to confdb only if it was empty
     result = subprocess.run(
         ["snapctl", "set", "--view", ":cos-registration-agent-observe", f"data={default_config}"],
         capture_output=True,
