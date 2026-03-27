@@ -31,11 +31,7 @@ if not os.path.exists(defaults_file):
     sys.exit(1)
 
 try:
-    # Read default YAML file
-    with open(defaults_file, 'r') as f:
-        config_data = f.read()
-    
-    # Get snap configuration values
+    # Get snap configuration values first
     def get_snap_config(key):
         """Get snap configuration value."""
         try:
@@ -51,18 +47,34 @@ try:
             pass
         return None
     
-    # Replace placeholders with snap config values
     rob_cos_ip = get_snap_config("rob-cos-ip")
-    if rob_cos_ip:
-        config_data = config_data.replace("rob-cos-ip-placeholder", rob_cos_ip)
-    
     model_name = get_snap_config("model-name")
-    if model_name:
-        config_data = config_data.replace("model-name-placeholder", model_name)
-    
     robot_uid = get_snap_config("robot-uid")
-    if robot_uid:
-        config_data = config_data.replace("robot-uid-placeholder", robot_uid)
+    
+    # Validate that all required configuration values are set
+    missing_values = []
+    if not rob_cos_ip:
+        missing_values.append("rob-cos-ip")
+    if not model_name:
+        missing_values.append("model-name")
+    if not robot_uid:
+        missing_values.append("robot-uid")
+    
+    if missing_values:
+        logger.info(f"Configuration incomplete. Missing values: {', '.join(missing_values)}")
+        logger.info("Skipping confdb and file updates until all values are set")
+        sys.exit(0)
+    
+    logger.info("All configuration values present, updating confdb and files")
+    
+    # Read default YAML file
+    with open(defaults_file, 'r') as f:
+        config_data = f.read()
+    
+    # Replace placeholders with snap config values
+    config_data = config_data.replace("rob-cos-ip-placeholder", rob_cos_ip)
+    config_data = config_data.replace("model-name-placeholder", model_name)
+    config_data = config_data.replace("robot-uid-placeholder", robot_uid)
     
     # Write to confdb
     result = subprocess.run(
@@ -75,6 +87,22 @@ try:
         logger.warning(f"Failed to write to confdb: {result.stderr}")
     else:
         logger.info("Configuration updated in confdb")
+    
+    # Update file-based configuration for content slot consumers
+    search_replace_script = os.path.join(
+        os.environ.get("SNAP", ""),
+        "usr/bin/search_and_replace.sh"
+    )
+    
+    result = subprocess.run(
+        [search_replace_script],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        logger.warning(f"Failed to update configuration files: {result.stderr}")
+    else:
+        logger.info("Configuration files updated")
 
 except Exception as e:
     logger.error(f"Error updating confdb: {e}")
