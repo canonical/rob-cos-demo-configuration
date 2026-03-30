@@ -25,11 +25,6 @@ defaults_file = os.path.join(
     "etc/configuration/defaults/device.yaml"
 )
 
-# Check if defaults file exists
-if not os.path.exists(defaults_file):
-    logger.error(f"Defaults file not found: {defaults_file}")
-    sys.exit(1)
-
 try:
     # Get snap configuration values first
     def get_snap_config(key):
@@ -78,7 +73,7 @@ try:
     
     # Write to confdb
     result = subprocess.run(
-        ["snapctl", "set", "--view", ":cos-registration-agent-observe", f"data={config_data}"],
+        ["snapctl", "set", "--view", ":cos-registration-agent-control-configuration", f"data={config_data}"],
         capture_output=True,
         text=True
     )
