@@ -1,85 +1,14 @@
-#!/usr/bin/env python3
+#!/bin/sh -e
 
-import os
-import subprocess
-import sys
-import logging.handlers
+# The connect hook cannot access confdb (it would cause a deadlock).
+# Instead, we start a service that will handle confdb initialization.
+# The service will:
+# - If snap config values (rob-cos-ip, model-name, robot-uid) are NOT all set → disable itself
+# - If snap config values ARE all set → read defaults, replace placeholders with real values,
+#   write to confdb, retry every 30 seconds if write fails, disable itself once successful
 
-# Setup logging to journald
-logger = logging.getLogger()
-try:
-    handler = logging.handlers.SysLogHandler(address='/dev/log')
-    handler.setFormatter(logging.Formatter('rob-cos-demo-configuration.connect-plug: %(message)s'))
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
-except Exception:
-    pass
+# Start the confdb initialization service
+# It's installed as disabled, so we need to start it explicitly
+snapctl start --enable rob-cos-demo-configuration.init-confdb
 
-# Path to the default configuration file
-defaults_file = os.path.join(
-    os.environ.get("SNAP", ""),
-    "etc/configuration/defaults/device.yaml"
-)
-
-try:
-    # Check if confdb already has data
-    check_result = subprocess.run(
-        ["snapctl", "get", "--view", ":cos-registration-agent-control-configuration", "data"],
-        capture_output=True,
-        text=True
-    )
-    
-    # If confdb already has data, don't overwrite it
-    if check_result.returncode == 0 and check_result.stdout.strip():
-        logger.info("Confdb already initialized, skipping default value write")
-        sys.exit(0)
-    
-    # Check if snap configuration values are already set
-    def get_snap_config(key):
-        """Get snap configuration value."""
-        try:
-            result = subprocess.run(
-                ["snapctl", "get", key],
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            if result.returncode == 0 and result.stdout.strip():
-                return result.stdout.strip()
-        except Exception:
-            pass
-        return None
-    
-    rob_cos_ip = get_snap_config("rob-cos-ip")
-    model_name = get_snap_config("model-name")
-    robot_uid = get_snap_config("robot-uid")
-    
-    # Check if any configuration values are already set
-    if rob_cos_ip or model_name or robot_uid:
-        logger.info("Snap configuration values are set, skipping placeholder initialization")
-        logger.info("Configure hook will write values to confdb when all are set")
-        sys.exit(0)
-    
-    logger.info("Confdb is empty and snap config not set, initializing with placeholders")
-    
-    # Read default YAML file
-    with open(defaults_file, 'r') as f:
-        default_config = f.read()
-    
-    # Write to confdb only if it was empty and no config is set
-    result = subprocess.run(
-        ["snapctl", "set", "--view", ":cos-registration-agent-control-configuration", f"data={default_config}"],
-        capture_output=True,
-        text=True
-    )
-    
-    if result.returncode != 0:
-        logger.warning(f"Failed to write defaults to confdb: {result.stderr}")
-    else:
-        logger.info("Initialized confdb with default configuration")
-
-except Exception as e:
-    logger.error(f"Error initializing confdb: {e}")
-
-# Always exit successfully
-sys.exit(0)
+exit 0

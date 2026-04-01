@@ -44,6 +44,7 @@ parts:
     source: snap/local/
     organize:
       '*.sh': usr/bin/
+      '*.py': usr/bin/
   configuration:
     plugin: dump
     source: snap/local/configuration/
@@ -56,3 +57,9 @@ apps:
 
   reset-config:
     command: usr/bin/reset_config.sh
+
+  init-confdb:
+    command: usr/bin/init_confdb_service.py
+    daemon: simple
+    install-mode: disable
+    plugs: [cos-registration-agent-control-configuration]
