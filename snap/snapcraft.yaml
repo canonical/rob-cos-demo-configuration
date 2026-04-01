@@ -39,12 +39,36 @@ slots:
       - $SNAP_COMMON/configuration
 
 parts:
+  flask-deps:
+    plugin: python
+    source: .
+    python-packages:
+      - Flask==3.0.0
+      - Werkzeug==3.0.1
+    stage-packages:
+      - python3-pip
+  
   scripts:
     plugin: dump
     source: snap/local/
     organize:
       '*.sh': usr/bin/
-      '*.py': usr/bin/
+      'init_confdb_service.py': usr/bin/
+      'web_config_daemon.py': usr/bin/
+      'configure_logic.py': usr/lib/
+    stage:
+      - usr/bin/*.sh
+      - usr/bin/init_confdb_service.py
+      - usr/bin/web_config_daemon.py
+      - usr/lib/configure_logic.py
+    after: [flask-deps]
+  
+  web-config:
+    plugin: dump
+    source: snap/local/web_config/
+    organize:
+      '*': usr/share/web_config/
+  
   configuration:
     plugin: dump
     source: snap/local/configuration/
@@ -63,3 +87,12 @@ apps:
     daemon: simple
     install-mode: disable
     plugs: [cos-registration-agent-control-configuration]
+  
+  web-config:
+    command: usr/bin/web_config_daemon.py
+    daemon: simple
+    install-mode: disable
+    plugs: 
+      - network
+      - network-bind
+      - cos-registration-agent-control-configuration

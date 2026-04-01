@@ -1,48 +1,29 @@
 #!/usr/bin/env python3
+"""
+Confdb initialization service - one-shot.
+Checks snap config and writes to confdb once, then disables itself.
+Started by hooks when interface connects.
+"""
 
 import os
 import subprocess
 import sys
-import logging.handlers
 import time
+import logging.handlers
 
-# Setup logging to journald
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+# Add snap lib to Python path
+snap_dir = os.environ.get("SNAP", "")
+if snap_dir:
+    sys.path.insert(0, os.path.join(snap_dir, "usr/lib"))
 
-try:
-    handler = logging.handlers.SysLogHandler(address='/dev/log')
-    handler.setFormatter(logging.Formatter('rob-cos-demo-configuration.init-confdb-service: %(message)s'))
-    logger.addHandler(handler)
-except Exception:
-    pass
+from configure_logic import CONFIG_MAPPINGS, get_snap_config_values, setup_logger
 
-# Configuration mapping: snap config key -> placeholder name
-CONFIG_MAPPINGS = {
-    "rob-cos-ip": "rob-cos-ip-placeholder",
-    "model-name": "model-name-placeholder",
-    "robot-uid": "robot-uid-placeholder",
-}
-
-
-def get_snap_config(key):
-    """Get snap configuration value."""
-    try:
-        result = subprocess.run(
-            ["snapctl", "get", key],
-            capture_output=True,
-            text=True,
-            check=False
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            return result.stdout.strip()
-    except Exception:
-        pass
-    return None
+# Setup logging
+logger = setup_logger("init-confdb-service")
 
 
 def stop_service():
-    """Stop this service."""
+    """Stop and disable this service."""
     try:
         subprocess.run(
             ["snapctl", "stop", "--disable", "rob-cos-demo-configuration.init-confdb"],
@@ -55,10 +36,14 @@ def stop_service():
 
 
 def write_config_to_confdb(config_values):
-    """Write configuration with real values to confdb.
+    """
+    Write configuration with real values to confdb.
     
     Args:
         config_values: Dictionary mapping config keys to their values
+        
+    Returns:
+        True if successful, False otherwise
     """
     defaults_file = os.path.join(
         os.environ.get("SNAP", ""),
@@ -86,6 +71,23 @@ def write_config_to_confdb(config_values):
             return False
         else:
             logger.info("Successfully wrote configuration to confdb")
+            
+            # Also update file-based configuration for content slot
+            search_replace_script = os.path.join(
+                os.environ.get("SNAP", ""),
+                "usr/bin/search_and_replace.sh"
+            )
+            
+            result = subprocess.run(
+                [search_replace_script],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                logger.warning(f"Failed to update configuration files: {result.stderr}")
+            else:
+                logger.info("Configuration files updated")
+            
             return True
     except Exception as e:
         logger.error(f"Error writing to confdb: {e}")
@@ -93,13 +95,11 @@ def write_config_to_confdb(config_values):
 
 
 def main():
-    """Main service loop."""
+    """Main service - one-shot execution."""
     logger.info("Confdb initialization service started")
     
     # Get all snap configuration values
-    config_values = {}
-    for config_key in CONFIG_MAPPINGS.keys():
-        config_values[config_key] = get_snap_config(config_key)
+    config_values = get_snap_config_values()
     
     # Check if all required values are set
     missing_values = [key for key, value in config_values.items() if not value]
