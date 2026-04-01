@@ -1,14 +1,11 @@
 #!/bin/sh -e
 
 # The connect hook cannot access confdb (it would cause a deadlock).
-# Instead, we start a service that will handle confdb initialization.
-# The service will:
-# - If snap config values (rob-cos-ip, model-name, robot-uid) are NOT all set → disable itself
-# - If snap config values ARE all set → read defaults, replace placeholders with real values,
-#   write to confdb, retry every 30 seconds if write fails, disable itself once successful
+# Start the init-confdb service to handle initialization.
+# It's installed as disabled, so we need to start it explicitly.
 
-# Start the confdb initialization service
-# It's installed as disabled, so we need to start it explicitly
+logger "cos-registration-agent-control-configuration interface connected, starting init-confdb service"
 snapctl start --enable rob-cos-demo-configuration.init-confdb
 
 exit 0
+
