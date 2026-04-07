@@ -1,0 +1,40 @@
+#!/bin/sh -eu
+
+STATE_FILE="${SNAP_COMMON}/configuration/.applied-values"
+
+# Applies a placeholder substitution, tracking the previous value so
+# subsequent runs can first revert it before re-applying the new one.
+search_and_replace() {
+    local keyword="$1"
+    local new_value="$2"
+
+    local directory="${SNAP_COMMON}/configuration"
+    local files
+    files=$(find "$directory" -type f ! -name ".applied-values")
+
+    # Look up the previously applied value for this keyword
+    local old_value=""
+    if [ -f "${STATE_FILE}" ]; then
+        old_value=$(grep "^${keyword}=" "${STATE_FILE}" | cut -d= -f2- || true)
+    fi
+
+    for file in $files; do
+        # Revert old value back to placeholder (if one was stored)
+        if [ -n "${old_value}" ]; then
+            sed -i "s#${old_value}#${keyword}#g" "$file"
+        fi
+        # Apply new value
+        sed -i "s#${keyword}#${new_value}#g" "$file"
+    done
+
+    # Update stored value
+    if [ -f "${STATE_FILE}" ]; then
+        sed -i "/^${keyword}=/d" "${STATE_FILE}"
+    fi
+    printf '%s=%s\n' "${keyword}" "${new_value}" >> "${STATE_FILE}"
+}
+
+search_and_replace "<cos-base-url>"      "$(snapctl get rob-cos-base-url)"
+search_and_replace "<device-uid>"        "$(snapctl get device-uid)"
+search_and_replace "<access-key-id>"     "$(snapctl get rob-cos-s3-access-key-id)"
+search_and_replace "<secret-access-key>" "$(snapctl get rob-cos-s3-secret-access-key)"

@@ -1,0 +1,19 @@
+#!/bin/sh -eu
+
+STORED_DEVICE_ID="$(snapctl get device-uid)"
+STORED_COS_SERVER_URL="$(snapctl get rob-cos-base-url)"
+STORED_COS_S3_ACCESS_KEY_ID="$(snapctl get rob-cos-s3-access-key-id)"
+STORED_COS_S3_SECRET_ACCESS_KEY="$(snapctl get rob-cos-s3-secret-access-key)"
+STORED_COS_S3_BUCKET="$(snapctl get rob-cos-s3-bucket)"
+
+cp -R ${SNAP}/etc/configuration/ ${SNAP_COMMON}/
+
+snapctl set device-uid=${STORED_DEVICE_ID}
+snapctl set rob-cos-base-url=${STORED_COS_SERVER_URL}
+snapctl set rob-cos-s3-access-key-id=${STORED_COS_S3_ACCESS_KEY_ID}
+snapctl set rob-cos-s3-secret-access-key=${STORED_COS_S3_SECRET_ACCESS_KEY}
+snapctl set rob-cos-s3-bucket=${STORED_COS_S3_BUCKET}
+
+# must be in the SNAP root directory for the find command
+cd ${SNAP}
+. ${SNAP}/usr/bin/search_and_replace

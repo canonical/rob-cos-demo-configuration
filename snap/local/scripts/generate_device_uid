@@ -1,0 +1,12 @@
+#!/bin/sh -eu
+
+machine_id_path="/etc/machine-id"
+
+if [ -f "${machine_id_path}" ]; then
+    logger -t ${SNAP_NAME} "Successfully read machine ID"
+    cat "${machine_id_path}" | tr -d '\n'
+else
+    echo "Failed to open ${machine_id_path}." >&2
+    logger -t ${SNAP_NAME} -p user.error "Failed to open ${machine_id_path}"
+    exit 1
+fi

@@ -1,11 +1,11 @@
 name: rob-cos-demo-configuration
-base: core22
+base: core24
 version: git
 summary: A snap for configuring the rob cos snaps on the device.
 description: |
   A snap for configuring the rob cos snaps on the device.
-      
-  This snap offers a default configuration for a rob cos device. 
+
+  This snap offers a default configuration for a rob cos device.
   It also offers a content sharing interface, to allow snaps on a device that is meant
   to work with the rob-cos ecosystem to easily get configured.
 
@@ -20,18 +20,28 @@ description: |
 grade: stable
 confinement: strict
 
+plugs:
+  rosbag2-recorder-parameters:
+    interface: confdb
+    account: canonical-robotics
+    view: cos-rosbag2-recorder/parameters
+  rclone-parameters:
+    interface: confdb
+    account: canonical-robotics
+    view: cos-rclone/parameters
+
 slots:
   configuration-read:
     interface: content
-    read: 
+    read:
       - $SNAP_COMMON/configuration
 
 parts:
   scripts:
     plugin: dump
-    source: snap/local/
+    source: snap/local/scripts/
     organize:
-      '*.sh': usr/bin/
+      '*': usr/bin/
   configuration:
     plugin: dump
     source: snap/local/configuration/
@@ -40,7 +50,12 @@ parts:
 
 apps:
   generate-device-uid:
-    command: usr/bin/generate_device_uid.sh
+    command: usr/bin/generate_device_uid
 
   reset-config:
-    command: usr/bin/reset_config.sh
+    command: usr/bin/reset_config
+
+  dispatch-confdb:
+    command: usr/bin/dispatch-confdb
+    daemon: simple
+    install-mode: disable

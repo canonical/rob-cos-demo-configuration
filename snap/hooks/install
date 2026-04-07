@@ -1,7 +1,42 @@
-#!/bin/sh -e
+#!/bin/sh -eu
 
-cp -R $SNAP/etc/configuration/ $SNAP_COMMON/
+cp -R ${SNAP}/etc/configuration/ ${SNAP_COMMON}/
 
-snapctl set rob-cos-base-url=$(cat $SNAP_COMMON/configuration/rob-cos-base-url)
-snapctl set device-uid=$(bash generate_device_uid.sh)
-snapctl set configuration-url!
+snapctl set rob-cos-base-url!
+if [ -f "${SNAP_COMMON}/configuration/cos-base-url" ]; then
+    snapctl set rob-cos-base-url=$(cat ${SNAP_COMMON}/configuration/cos-base-url)
+    logger -t ${SNAP_NAME} "Successfully read rob-cos-base-url from configuration file."
+fi
+
+if [ -f "${SNAP_COMMON}/configuration/device-uid" ]; then
+    snapctl set device-uid=$(cat ${SNAP_COMMON}/configuration/device-uid)
+    logger -t ${SNAP_NAME} "Successfully read device-uid from configuration file."
+else
+    snapctl set device-uid=$(sh ${SNAP}/usr/bin/generate_device_uid)
+    logger -t ${SNAP_NAME} "Successfully generated device-uid '$(snapctl get device-uid)'."
+fi
+
+if [ -z "$(snapctl get device-uid)" ]; then
+    logger -t ${SNAP_NAME} "device-uid is not set, aborting."
+    exit 1
+fi
+
+snapctl set rob-cos-s3-access-key-id!
+snapctl set rob-cos-s3-secret-access-key!
+snapctl set rob-cos-s3-bucket=$(snapctl get device-uid)
+if [ -f "${SNAP_COMMON}/configuration/cos-s3-credentials" ]; then
+    snapctl set rob-cos-s3-access-key-id=$(sed -n '1p' ${SNAP_COMMON}/configuration/cos-s3-credentials)
+    snapctl set rob-cos-s3-secret-access-key=$(sed -n '2p' ${SNAP_COMMON}/configuration/cos-s3-credentials)
+    snapctl set rob-cos-s3-bucket=$(sed -n '3p' ${SNAP_COMMON}/configuration/cos-s3-credentials)
+    logger -t ${SNAP_NAME} "Successfully read S3 credentials from configuration file."
+fi
+
+# Check all plugs are connected, warn if not but don't block
+for plug in rosbag2-recorder-parameters rclone-parameters; do
+  if ! snapctl is-connected ${plug}; then
+    logger -t ${SNAP_NAME} "Plug '${plug}' isn't connected, \
+      please run: snap connect ${SNAP_NAME}:${plug}"
+  fi
+done
+
+snapctl set-health waiting "Waiting for interfaces to be connected and configuration to be applied..."
