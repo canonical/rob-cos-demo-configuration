@@ -35,6 +35,7 @@ done
 
 # Update the configuration files with the current parameter values
 
+cp -R ${SNAP}/etc/configuration/ ${SNAP_COMMON}/
 . ${SNAP}/usr/bin/search_and_replace
 
 rosbag2_config="${SNAP_COMMON}/configuration/ros2-exporter-agent/rosbag2-recorder.yaml"
@@ -73,4 +74,4 @@ snapctl_set_view_retry :rosbag2-recorder-parameters file="$(cat ${rosbag2_config
 snapctl_set_view_retry :rclone-parameters file="$(cat ${rclone_config})"
 snapctl_set_view_retry :rclone-parameters bucket="$(snapctl get rob-cos-s3-bucket)"
 
-snapctl stop --disable ${SNAP_NAME}.confdb-setter || true
+snapctl stop --disable ${SNAP_NAME}.dispatch-confdb || true
