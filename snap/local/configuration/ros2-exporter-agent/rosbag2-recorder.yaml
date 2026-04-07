@@ -1,0 +1,52 @@
+cos_rosbag2_recorder:
+  ros__parameters:
+
+    # --- Storage Options ---
+    storage:
+      # The uri is set automatically by the snap
+      # uri: "${SNAP_COMMON}/data/rosbag2_$(date +%Y_%m_%d-%H_%M_%S)"
+
+      storage_id: "mcap"
+
+      # storage_config_uri
+
+      max_bagfile_size: 104857600 # 100MB
+      max_bagfile_duration: 300 # 5min
+      # max_cache_size
+      # storage_preset_profile
+      # snapshot_mode
+      # custom_data
+      # start_time_ns
+      # end_time_ns
+
+    record:
+      # all_topics
+      # all_services
+      # is_discovery_disabled
+      topics:
+        - "/chatter"
+        - "/odom"
+        - "/tf"
+      # topic_types
+      # services
+      exclude_topics:
+        - "/rosout"
+      # exclude_topics_type
+      # exclude_services
+      # rmw_serialization_format
+      # topic_polling_interval
+      # regex
+      # exclude_regex
+      # node_prefix
+      # compression_mode
+      # compression_format: "zstd"
+      # compression_queue_size
+      # compression_threads
+      # compression_threads_priority
+      # qos_profile_overrides_path
+      # include_hidden_topics
+      # include_unpublished_topics
+      # ignore_leaf_topics
+      # start_paused
+      disable_keyboard_controls: true
+      # use_sim_time

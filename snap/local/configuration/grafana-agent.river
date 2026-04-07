@@ -24,21 +24,21 @@ prometheus.scrape "default" {
 
 prometheus.remote_write "default" {
 	external_labels = {
-        device_instance = "robot-uid-placeholder",
+        device_instance = "<device-uid>",
     }
 	endpoint {
-		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "-prometheus-0/api/v1/write"
+		url = "<cos-base-url>" + "-prometheus-0/api/v1/write"
 	}
 }
 
 loki.source.journal "read" {
 	forward_to     = [loki.write.endpoint.receiver]
 	format_as_json = true
-	labels         = {component = "loki.source.journal", instance = "robot-uid-placeholder"}
+	labels         = {component = "loki.source.journal", instance = "<device-uid>"}
 }
 
 loki.write "endpoint" {
 	endpoint {
-		url = "http://rob-cos-ip-placeholder/model-name-placeholder" + "-loki-0/loki/api/v1/push"
+		url = "<cos-base-url>" + "-loki-0/loki/api/v1/push"
 	}
 }

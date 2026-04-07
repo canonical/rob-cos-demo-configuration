@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+# function to search and replace keywords in
+# SNAP_COMMON's configuration files
+search_and_replace() {
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: search_and_replace <keyword> <replacement>"
+        return 1
+    fi
+
+    local keyword="$1"
+    local replacement="$2"
+
+    local directory="${SNAP_COMMON}/configuration"
+    local files=$(find "$directory" -type f)
+
+    for file in $files; do
+        sed -i "s#$keyword#$replacement#g" "$file"
+    done
+}
+
+search_and_replace "<cos-base-url>" "$(snapctl get rob-cos-base-url)"
+search_and_replace "<device-uid>" "$(snapctl get device-uid)"
+
+search_and_replace "<access-key-id>" "$(snapctl get rob-cos-s3-access-key-id)"
+search_and_replace "<secret-access-key>" "$(snapctl get rob-cos-s3-secret-access-key)"

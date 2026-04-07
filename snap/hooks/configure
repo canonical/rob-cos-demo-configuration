@@ -1,3 +1,5 @@
-#!/bin/sh -e
+#!/bin/sh -eu
 
-bash $SNAP/usr/bin/search_and_replace.sh
+if snapctl services ${SNAP_NAME}.dispatch-confdb | grep -q inactive; then
+    snapctl start ${SNAP_NAME}.dispatch-confdb || true
+fi
