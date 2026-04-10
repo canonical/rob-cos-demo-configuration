@@ -21,7 +21,7 @@ groups:
       annotations:
         description: "LIDAR data from {{ $labels.device_instance }} has not been updated for over 30 seconds."
         summary: "Robot {{ $labels.device_instance }} LIDAR data is stale."
-      expr: time() - ros2_lidar_last_message_timestamp_seconds{device_instance="%%juju_device_uuid%%"} > 30
+      expr: time() - timestamp(ros2_lidar_last_message_timestamp_seconds{device_instance="%%juju_device_uuid%%"}) > 30
       for: 1m
       labels:
         severity: warning

@@ -35,7 +35,3 @@ Once installed connect the snaps on the device requiring the configuration as fo
 ```
 sudo snap connect rob-cos-snap:configuration-read rob-cos-demo-configuration:configuration-read
 ```
-
-## Testing alert rules
-
-A small Python **fake metrics / optional Loki** publisher lives under [`tests/integration/`](tests/integration/). Use it to validate Prometheus and Loki alert templates locally or in CI. See [`tests/integration/README.md`](tests/integration/README.md) for setup and commands.
