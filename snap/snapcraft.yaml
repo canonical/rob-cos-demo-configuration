@@ -20,11 +20,23 @@ description: |
 grade: stable
 confinement: strict
 
+plugs:
+  otelcol-configuration:
+    interface: confdb
+    account: canonical-robotics
+    view: rob-cos-opentelemetry-collector/set-configuration
+
 slots:
   configuration-read:
     interface: content
     read: 
       - $SNAP_COMMON/configuration
+
+hooks:
+  configure:
+    plugs: [otelcol-configuration]
+  install:
+    plugs: [otelcol-configuration]
 
 parts:
   scripts:

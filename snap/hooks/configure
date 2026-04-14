@@ -1,3 +1,10 @@
 #!/bin/sh -e
 
 bash $SNAP/usr/bin/search_and_replace.sh
+
+if snapctl is-connected otelcol-configuration; then
+  logger -t "${SNAP_NAME}" "Plug 'otelcol-configuration' is connected"
+  "${SNAP}/usr/bin/otelcol-configuration.sh"
+else
+  logger -t "${SNAP_NAME}" "Plug 'otelcol-configuration' is not connected"
+fi
