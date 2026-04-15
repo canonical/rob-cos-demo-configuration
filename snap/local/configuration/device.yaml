@@ -2,5 +2,5 @@ url: http://rob-cos-ip-placeholder/model-name-placeholder-cos-registration-serve
 uid: robot-uid-placeholder
 device-grafana-dashboards: [linux-system, systemd-and-snaps-logs]
 device-foxglove-dashboards: [topics-and-logs, teleop]
-device-loki-alert-rule-files: [human_detected, high_log_rate, mobile_robot]
-device-prometheus-alert-rule-files: [common, low_memory, mobile_robot, manipulator, ros2_battery]
+device-loki-alert-rule-files: [human_detected, high_log_rate]
+device-prometheus-alert-rule-files: [common, low_memory, ros2_battery]
