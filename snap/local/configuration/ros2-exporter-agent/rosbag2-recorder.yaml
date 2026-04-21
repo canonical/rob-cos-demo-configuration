@@ -1,0 +1,11 @@
+# For the full list of available ros__parameters you can refer to
+# https://github.com/ros2/rosbag2/blob/jazzy/rosbag2_transport/test/resources/recorder_node_params.yaml
+cos_rosbag2_recorder:
+  ros__parameters:
+    record:
+      regex: '.*'
+      exclude_topics: ["/rosout"] # topic regex to exclude topics from the record
+    storage:
+      storage_id: 'mcap'
+      max_bagfile_duration: 300 # 5min maximum bag duration before we split into another file
+      max_bagfile_size: 250000000 # 250M maximum bag file size before we split into another file
