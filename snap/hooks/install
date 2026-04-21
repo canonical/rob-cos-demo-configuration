@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-cp -R $SNAP/etc/configuration/ $SNAP_COMMON/
+cp -R "${SNAP}/etc/configuration/" "${SNAP_COMMON}/"
 
-snapctl set rob-cos-base-url=$(cat $SNAP_COMMON/configuration/rob-cos-base-url)
+snapctl set rob-cos-base-url=$(cat "${SNAP_COMMON}/configuration/rob-cos-base-url")
 snapctl set device-uid=$(bash generate_device_uid.sh)
 snapctl set s3-access-key-id=$(cat "${SNAP_COMMON}/configuration/s3-access-key-id")
 snapctl set s3-secret-access-key=$(cat "${SNAP_COMMON}/configuration/s3-secret-access-key")

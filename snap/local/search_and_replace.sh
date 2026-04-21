@@ -28,7 +28,7 @@ if [ "$CURRENT_DEVICE_ID" != "$STORED_DEVICE_ID" ]; then
 fi
 
 CURRENT_S3_ACCESS_KEY_ID=$(snapctl get s3-access-key-id)
-STORED_S3_ACCESS_KEY_ID=$(cat $SNAP_COMMON/configuration/s3-access-key-id)
+STORED_S3_ACCESS_KEY_ID=$(cat "${SNAP_COMMON}/configuration/s3-access-key-id")
 
 if [ "$CURRENT_S3_ACCESS_KEY_ID" != "$STORED_S3_ACCESS_KEY_ID" ]; then
     echo "s3-access-key-id is different updating!"
@@ -36,9 +36,9 @@ if [ "$CURRENT_S3_ACCESS_KEY_ID" != "$STORED_S3_ACCESS_KEY_ID" ]; then
 fi
 
 CURRENT_S3_SECRET_ACCESS_KEY=$(snapctl get s3-secret-access-key)
-STORED_S3_SECRET_ACCESS_KEY=$(cat $SNAP_COMMON/configuration/s3-secret-access-key)
+STORED_S3_SECRET_ACCESS_KEY=$(cat "${SNAP_COMMON}/configuration/s3-secret-access-key")
 
-if [ -n "$CURRENT_S3_SECRET_ACCESS_KEY" ] && [ "$CURRENT_S3_SECRET_ACCESS_KEY" != "$STORED_S3_SECRET_ACCESS_KEY" ]; then
+if [ "$CURRENT_S3_SECRET_ACCESS_KEY" != "$STORED_S3_SECRET_ACCESS_KEY" ]; then
     echo "s3-secret-access-key is different updating!"
     search_and_replace "$STORED_S3_SECRET_ACCESS_KEY" "$CURRENT_S3_SECRET_ACCESS_KEY"
 fi
