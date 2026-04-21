@@ -1,0 +1,43 @@
+groups:
+  - name: common-robot-alerts
+    rules:
+    - alert: BatteryLow
+      annotations:
+        description: "Battery on {{ $labels.device_instance }} has been below 20% for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} battery is low."
+      expr: ros2_battery_percentage{} < 20
+      for: 5m
+      labels:
+        severity: warning
+    - alert: BatteryCritical
+      annotations:
+        description: "Battery on {{ $labels.device_instance }} has been below 5% for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} battery is critically low."
+      expr: ros2_battery_percentage{} < 5
+      for: 5m
+      labels:
+        severity: critical
+    - alert: DeviceOffline
+      annotations:
+        description: "No metrics have been received from {{ $labels.device_instance }} for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} appears to be offline."
+      expr: up{} == 0
+      for: 5m
+      labels:
+        severity: critical
+    - alert: HighCPUUsage
+      annotations:
+        description: "CPU usage on {{ $labels.device_instance }} has exceeded 85% for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} is experiencing high CPU usage."
+      expr: (1 - avg by(device_instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100 > 85
+      for: 5m
+      labels:
+        severity: warning
+    - alert: LowDiskSpace
+      annotations:
+        description: "Available disk space on {{ $labels.device_instance }} has been below 10% for 5 minutes."
+        summary: "Robot {{ $labels.device_instance }} is running low on disk space."
+      expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 10
+      for: 5m
+      labels:
+        severity: critical

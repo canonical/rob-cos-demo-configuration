@@ -1,0 +1,11 @@
+groups:
+  - name: mobile_robot_localization/%%juju_device_uuid%%
+    rules:
+      - alert: LocalizationLoss%%juju_device_uuid%%
+        expr: 'count_over_time({instance="%%juju_device_uuid%%", job="loki.source.journal.read"} |= `localization failed` [5m]) > 3'
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Robot {{ $labels.instance }} has lost localization."
+          description: "More than 3 localization failure messages have appeared in the logs of {{ $labels.instance }} in the last 5 minutes."
