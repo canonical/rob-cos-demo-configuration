@@ -1,0 +1,84 @@
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+receivers:
+  # Collect host metrics
+  hostmetrics:
+    collection_interval: 10s
+    scrapers:
+      cpu:
+      disk:
+      filesystem:
+      load:
+      memory:
+      network:
+      paging:
+      process:
+      processes:
+
+  # Collect systemd unit metrics
+  systemd:
+    collection_interval: 10s
+
+  # Collect otelcol self-telemetry metrics
+  prometheus:
+    config:
+      scrape_configs:
+      - job_name: 'otelcol'
+        scrape_interval: 10s
+        static_configs:
+        - targets: ['0.0.0.0:8888']
+
+  # Collect journald logs
+  journald:
+
+processors:
+  resource/device_instance:
+    attributes:
+      - key: device_instance
+        value: robot-uid-placeholder
+        action: upsert
+
+  attributes/loki_labels:
+    actions:
+      - key: component
+        value: loki.source.journal
+        action: upsert
+      - key: device_instance
+        value: robot-uid-placeholder
+        action: upsert
+      - key: loki.attribute.labels
+        value: component,instance
+        action: upsert
+
+  batch: {}
+
+exporters:
+  # TODO replace with otlphttp once available in the charm
+  prometheusremotewrite:
+    endpoint: http://rob-cos-ip-placeholder/model-name-placeholder-prometheus-0/api/v1/write
+    resource_to_telemetry_conversion:
+      enabled: true
+
+  # TODO replace with otlphttp once available in the charm
+  loki:
+    endpoint: http://rob-cos-ip-placeholder/model-name-placeholder-loki-0/loki/api/v1/push
+
+service:
+  extensions: [health_check]
+  telemetry:
+    logs:
+      level: info
+    metrics:
+      level: normal
+      address: 0.0.0.0:8888
+  pipelines:
+    metrics:
+      receivers: [hostmetrics, systemd, prometheus/otelcol]
+      processors: [resource/device_instance, batch]
+      exporters: [prometheusremotewrite]
+    logs:
+      receivers: [journald]
+      processors: [attributes/loki_labels, batch]
+      exporters: [loki]
