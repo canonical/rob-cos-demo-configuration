@@ -1,3 +1,10 @@
 #!/bin/sh -e
 
 bash "${SNAP}/usr/bin/search_and_replace.sh"
+
+if snapctl is-connected ros2-exporter-agent-configuration; then
+  logger -t "${SNAP_NAME}" "Plug 'ros2-exporter-agent-configuration' is connected"
+  "${SNAP}/usr/bin/ros2-exporter-agent-configuration.sh"
+else
+  logger -t "${SNAP_NAME}" "Plug 'ros2-exporter-agent-configuration' is not connected"
+fi

@@ -25,6 +25,14 @@ slots:
     interface: content
     read: 
       - $SNAP_COMMON/configuration
+plugs:
+  ros2-exporter-agent-configuration:
+    interface: confdb
+    account: canonical-robotics
+    view: ros2-exporter-agent/configuration
+hooks:
+  configure:
+    plugs: [ros2-exporter-agent-configuration]
 
 parts:
   scripts:
