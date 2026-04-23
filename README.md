@@ -16,6 +16,12 @@ More information on how to write a configuration snap for cos for device can be 
 
 ## Installation
 
+First, make sure you've enable the confdb experimental feature.
+
+```
+sudo snap set system experimental.confdb=true
+```
+
 To install the basic setup:
 
 ```
