@@ -45,7 +45,7 @@ fi
 
 CURRENT_COS_SERVER_URL=$(snapctl get rob-cos-base-url)
 CURRENT_COS_SERVER_IP=$(echo "$CURRENT_COS_SERVER_URL" | awk -F '//' '{print $2}' | cut -d '/' -f 1)
-STORED_COS_SERVER_URL=$(cat "$SNAP_COMMON/configuration/rob-cos-base-url")
+STORED_COS_SERVER_URL=$(cat "${SNAP_COMMON}/configuration/rob-cos-base-url")
 STORED_COS_SERVER_IP="$(echo "$STORED_COS_SERVER_URL" | awk -F '//' '{print $2}' | cut -d '/' -f 1)"
 
 if [ "$CURRENT_COS_SERVER_URL" != "$STORED_COS_SERVER_URL" ]; then
