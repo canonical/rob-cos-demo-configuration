@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+
+bash "${SNAP}/usr/bin/cos-registration-agent-configuration.sh"

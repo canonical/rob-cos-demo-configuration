@@ -30,9 +30,15 @@ plugs:
     interface: confdb
     account: canonical-robotics
     view: ros2-exporter-agent/configuration
+  cos-registration-agent-configuration:
+    interface: confdb
+    account: canonical-robotics
+    view: cos-registration-agent/configuration
 hooks:
   configure:
-    plugs: [ros2-exporter-agent-configuration]
+    plugs:
+      - ros2-exporter-agent-configuration
+      - cos-registration-agent-configuration
 
 parts:
   scripts:

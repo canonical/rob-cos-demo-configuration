@@ -8,3 +8,10 @@ if snapctl is-connected ros2-exporter-agent-configuration; then
 else
   logger -t "${SNAP_NAME}" "Plug 'ros2-exporter-agent-configuration' is not connected"
 fi
+
+if snapctl is-connected cos-registration-agent-configuration; then
+  logger -t "${SNAP_NAME}" "Plug 'cos-registration-agent-configuration' is connected"
+  "${SNAP}/usr/bin/cos-registration-agent-configuration.sh"
+else
+  logger -t "${SNAP_NAME}" "Plug 'cos-registration-agent-configuration' is not connected"
+fi
