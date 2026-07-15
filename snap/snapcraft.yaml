@@ -53,5 +53,6 @@ apps:
 
   place-config:
     command: usr/bin/place_config.sh
+    daemon: oneshot
     plugs:
       - ros2-exporter-agent-config

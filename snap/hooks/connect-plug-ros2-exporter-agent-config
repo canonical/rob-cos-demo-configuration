@@ -1,0 +1,39 @@
+#!/bin/sh -e
+
+# connect-plug hook for the ros2-exporter-agent-config (system-files) interface.
+#
+# Runs when the interface is connected. It first backs up any existing
+# configuration files in the target directory (appending a ".bak" suffix),
+# then places the configuration shipped by this snap.
+#
+# Backups are created here ONLY (the place-config oneshot daemon never creates
+# backups). If the target directory does not exist, this hook exits non-zero,
+# which fails the connection.
+
+SOURCE="$SNAP/etc/configuration/ros2-exporter-agent"
+TARGET="/var/snap/ros2-exporter-agent/common/configuration"
+
+if [ ! -d "$SOURCE" ]; then
+    echo "Source directory $SOURCE not found." >&2
+    exit 1
+fi
+
+if [ ! -d "$TARGET" ]; then
+    echo "Target directory $TARGET not found. Is the ros2-exporter-agent snap installed?" >&2
+    exit 1
+fi
+
+# Back up every existing destination file before it gets overwritten.
+cd "$SOURCE"
+find . -type f | while read -r file; do
+    rel=$(echo "$file" | sed 's#^\./##')
+    dest="$TARGET/$rel"
+
+    if [ -f "$dest" ]; then
+        echo "Backing up $dest -> $dest.bak"
+        cp -a "$dest" "$dest.bak"
+    fi
+done
+
+# Place the configuration files.
+exec "$SNAP/usr/bin/place_config.sh"
