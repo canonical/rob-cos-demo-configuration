@@ -26,6 +26,12 @@ slots:
     read: 
       - $SNAP_COMMON/configuration
 
+plugs:
+  ros2-exporter-agent-config:
+    interface: system-files
+    write:
+      - /var/snap/ros2-exporter-agent/common/configuration
+
 parts:
   scripts:
     plugin: dump
@@ -44,3 +50,8 @@ apps:
 
   reset-config:
     command: usr/bin/reset_config.sh
+
+  place-config:
+    command: usr/bin/place_config.sh
+    plugs:
+      - ros2-exporter-agent-config
