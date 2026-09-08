@@ -7,9 +7,15 @@ on:
 jobs:
   basic:
     uses: canonical/rob-cos-demo-configuration/.github/workflows/snap.yaml@basic
+    permissions:
+      contents: read
+      actions: write
     with:
       branch-name: "basic"
   advanced:
     uses: canonical/rob-cos-demo-configuration/.github/workflows/snap.yaml@advanced
+    permissions:
+      contents: read
+      actions: write
     with:
       branch-name: "advanced"
