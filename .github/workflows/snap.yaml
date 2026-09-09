@@ -17,6 +17,9 @@ on:
 jobs:
   snap:
     uses: canonical/robotics-actions-workflows/.github/workflows/snap.yaml@main
+    permissions:
+      contents: read
+      actions: write
     secrets:
       snapstore-login: ${{ secrets.STORE_LOGIN }}
     with:
